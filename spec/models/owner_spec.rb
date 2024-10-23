@@ -72,6 +72,18 @@ RSpec.describe Owner, type: :model do
       end
     end
 
+    context 'quando CPF não é único' do
+      it 'retorna falso' do
+        Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
+                              password: '123456789012')
+        new_owner = Owner.new(cpf: '34423090007')
+
+        new_owner.valid?
+
+        expect(new_owner.errors[:cpf]).to include 'já está em uso'
+      end
+    end
+
     context 'quando CPF não é composto apenas por números' do
       it 'retorna falso' do
         owner = Owner.new(cpf: 'ABC91409020')

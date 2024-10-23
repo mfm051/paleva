@@ -5,6 +5,7 @@ class Owner < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :cpf, :name, :surname, presence: true
+  validates :cpf, uniqueness: true
   validate :cpf_must_have_11_chars, :cpf_must_be_numeric, :cpf_must_be_valid
 
   private
