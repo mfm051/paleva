@@ -17,4 +17,16 @@ describe 'Dono de restaurante cria sua conta' do
     expect(current_path).to eq new_restaurant_path
     expect(page).to have_content 'Bem vindo! Você realizou seu registro com sucesso.'
   end
+
+  it 'e não preenche campo adequadamente' do
+    visit root_path
+    click_on 'Criar conta'
+    fill_in 'Nome', with: ''
+    within('form') do
+      click_on 'Criar conta'
+    end
+
+    expect(page).to have_content 'Não foi possível salvar dono'
+    expect(page).to have_content 'Nome não pode ficar em branco'
+  end
 end
