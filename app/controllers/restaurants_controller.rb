@@ -1,6 +1,7 @@
 class RestaurantsController < ApplicationController
-  before_action :authenticate_owner!, only: [:show]
-  def show
+  before_action :authenticate_owner!
 
-  end
+  def show; end
+
+  def new; end
 end

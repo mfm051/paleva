@@ -1,0 +1,12 @@
+pt-BR:
+  activerecord:
+    models:
+      owner: Dono
+    attributes:
+      owner:
+        name: "Nome"
+        surname: "Sobrenome"
+        cpf: "CPF"
+        email: "E-mail"
+        password: "Senha"
+        password_confirmation: "Confirme sua senha"
