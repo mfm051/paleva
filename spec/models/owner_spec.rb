@@ -54,7 +54,7 @@ RSpec.describe Owner, type: :model do
       end
     end
 
-    context 'quando CPF não tem 11 caracteres' do
+    context 'quando CPF é inválido' do
       it 'retorna falso para valor muito curto' do
         owner = Owner.new(cpf: '123456')
 
@@ -70,32 +70,16 @@ RSpec.describe Owner, type: :model do
 
         expect(owner.errors[:cpf]).to include 'deve ter 11 caracteres'
       end
-    end
 
-    context 'quando CPF não é único' do
-      it 'retorna falso' do
-        Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
-                              password: '123456789012')
-        new_owner = Owner.new(cpf: '34423090007')
-
-        new_owner.valid?
-
-        expect(new_owner.errors[:cpf]).to include 'já está em uso'
-      end
-    end
-
-    context 'quando CPF não é composto apenas por números' do
-      it 'retorna falso' do
+      it 'retorna falso para valor não numérico' do
         owner = Owner.new(cpf: 'ABC91409020')
 
         owner.valid?
 
         expect(owner.errors[:cpf]).to include 'deve ser composto apenas por números'
       end
-    end
 
-    context 'quando CPF não é válido' do
-      it 'retorna falso' do
+      it 'retorna falso para valor que não atende regras' do
         owner = Owner.new(cpf: '00000000000')
 
         owner.valid?
@@ -119,6 +103,28 @@ RSpec.describe Owner, type: :model do
         owner.valid?
 
         expect(owner.errors[:email]).to include 'não é válido'
+      end
+    end
+
+    context 'quando campo é duplicado' do
+      it 'retorna falso para CPF' do
+        Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
+                              password: '123456789012')
+        new_owner = Owner.new(cpf: '34423090007')
+
+        new_owner.valid?
+
+        expect(new_owner.errors[:cpf]).to include 'já está em uso'
+      end
+
+      it 'retorna falso para email' do
+        Owner.create!(email: 'paula@email.com', cpf: '34423090007', name: 'Paula', surname: 'Groselha',
+                      password: '123456789012')
+        new_owner = Owner.new(email: 'paula@email.com')
+
+        new_owner.valid?
+
+        expect(new_owner.errors[:email]).to include 'já está em uso'
       end
     end
   end
