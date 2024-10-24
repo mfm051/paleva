@@ -19,9 +19,16 @@
 
   <body>
     <header>
+      <nav>
+        <% if current_owner %>
+          <%= button_to 'Sair', destroy_owner_session_path, method: :delete %>
+        <% end %>
+      </nav>
+    </header>
+    <div>
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
-    </header>
+    </div>
     <%= yield %>
   </body>
 </html>
