@@ -16,25 +16,33 @@ class Restaurant < ApplicationRecord
   end
 
   def email_must_be_valid
-    unless email.present? && email.match?(/\A[^@\s]+@[^@\s]+\z/)
+    return unless email.present?
+
+    unless email.match?(/\A[^@\s]+@[^@\s]+\z/)
       errors.add(:email, 'não é válido')
     end
   end
 
   def cnpj_must_be_numeric
-    unless cnpj.present? && cnpj.chars.all? { |char| ('0'..'9').include? char }
+    return unless cnpj.present?
+
+    unless cnpj.chars.all? { |char| ('0'..'9').include? char }
       errors.add(:cnpj, 'deve ser composto apenas por números')
     end
   end
 
   def cnpj_must_have_14_chars
-    unless cnpj.present? && cnpj.length == 14
+    return unless cnpj.present?
+
+    unless cnpj.length == 14
       errors.add(:cnpj, 'deve ter 14 caracteres')
     end
   end
 
   def cnpj_must_be_valid
-    unless cnpj.present? && CNPJ.valid?(cnpj)
+    return unless cnpj.present?
+
+    unless CNPJ.valid?(cnpj)
       errors.add(:cnpj, 'não é válido')
     end
   end

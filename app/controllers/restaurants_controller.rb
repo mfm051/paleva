@@ -19,7 +19,11 @@ class RestaurantsController < ApplicationController
     restaurant_params = params.require(:restaurant).permit(:brand_name, :corporate_name, :cnpj, :full_address, :phone,
                                                           :email)
     @restaurant = current_owner.build_restaurant(restaurant_params)
-    @restaurant.save
-    redirect_to root_path, notice: 'Restaurante cadastrado com sucesso'
+    if @restaurant.save
+      redirect_to root_path, notice: 'Restaurante cadastrado com sucesso'
+    else
+      flash.now[:notice] = 'Restaurante não cadastrado'
+      render :new, status: :unprocessable_entity
+    end
   end
 end
