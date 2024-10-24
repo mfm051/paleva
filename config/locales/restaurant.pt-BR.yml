@@ -1,0 +1,12 @@
+pt-BR:
+  activerecord:
+    models:
+      restaurant: Restaurante
+    attributes:
+      restaurant:
+        brand_name: "Nome fantasia"
+        email: "E-mail"
+        corporate_name: "Razão social"
+        cnpj: "CNPJ"
+        full_address: "Endereço"
+        phone: "Telefone"

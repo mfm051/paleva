@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'restaurants#show'
   devise_for :owners, controllers: {registrations: "registrations"}
   resource :restaurant, only: [:new, :create]
+  resolve('Restaurant') { [:restaurant] }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
