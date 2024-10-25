@@ -1,1 +1,34 @@
 <h1><%= @restaurant.brand_name %></h1>
+
+<h2>Pratos</h2>
+
+<% if @restaurant.dishes.any? %>
+  <ul>
+    <% @restaurant.dishes.each do |dish| %>
+      <li>
+        <h3><%= dish.name %></h3>
+        <p><%= dish.description %></p>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Ainda não há pratos cadastrados</p>
+<% end %>
+
+<h2>Bebidas</h2>
+
+<% if @restaurant.drinks.any? %>
+  <ul>
+    <% @restaurant.drinks.each do |drink| %>
+      <li>
+        <h3><%= drink.name %></h3>
+        <p><%= drink.description %></p>
+        <% if drink.alcoholic? %>
+          <p>contém álcool</p>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Ainda não há bebidas cadastradas</p>
+<% end %>
