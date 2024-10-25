@@ -8,6 +8,9 @@
       <li>
         <h3><%= dish.name %></h3>
         <p><%= dish.description %></p>
+        <% if dish.calories %>
+          <p>Valor energético: <%= dish.calories %> kcal</p>
+        <% end %>
       </li>
     <% end %>
   </ul>
@@ -25,6 +28,9 @@
       <li>
         <h3><%= drink.name %></h3>
         <p><%= drink.description %></p>
+        <% if drink.calories %>
+          <p>Valor energético: <%= drink.calories %> kcal</p>
+        <% end %>
         <% if drink.alcoholic? %>
           <p>contém álcool</p>
         <% end %>
