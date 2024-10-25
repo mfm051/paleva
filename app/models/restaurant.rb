@@ -1,6 +1,7 @@
 class Restaurant < ApplicationRecord
   belongs_to :owner
-  has_many :dishes
+  has_many :dishes, dependent: :destroy
+  has_many :drinks, dependent: :destroy
 
   before_validation :generate_code
 
