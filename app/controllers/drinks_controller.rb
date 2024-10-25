@@ -9,6 +9,9 @@ class DrinksController < ApplicationController
 
     if @drink.save
       redirect_to root_path, notice: 'Bebida cadastrada com sucesso'
+    else
+      flash.alert = 'Bebida não cadastrada'
+      render :new, status: :unprocessable_entity
     end
   end
 
