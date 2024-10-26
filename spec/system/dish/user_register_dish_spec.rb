@@ -14,11 +14,13 @@ describe 'Usuário registra um prato para seu estabelecimento' do
     fill_in 'Nome', with: 'Provoleta de Cabra grelhada'
     fill_in 'Descrição', with: 'Entrada'
     fill_in 'Quantidade de calorias', with: '100'
+    attach_file 'Imagem ilustrativa', 'spec/fixtures/dish_test.jpg'
     click_on 'Salvar'
 
     expect(current_path).to eq root_path
     expect(page).to have_content 'Prato cadastrado com sucesso'
     expect(page).to have_content 'Provoleta de Cabra grelhada'
+    expect(page).to have_css "img[src*='dish_test.jpg']"
   end
 
   it 'e não preeche campo corretamente' do

@@ -42,5 +42,5 @@ class DishesController < ApplicationController
     @dish = Dish.find(params[:id])
   end
 
-  def params_dish = params.require(:dish).permit(:name, :description, :calories)
+  def params_dish = params.require(:dish).permit(:name, :description, :calories, :illustration)
 end
