@@ -42,7 +42,7 @@ describe 'Usuário remove uma bebida do seu estabelecimento' do
       click_on 'Remover bebida'
     end
 
-    expect(restaurant.drinks).to include drink
+    expect(current_path).to eq edit_drink_path(drink)
     expect(page).to have_field 'Nome', with: 'Coca-cola'
   end
 end
