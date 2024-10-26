@@ -1,13 +1,5 @@
 <h1>Novo prato</h1>
 
-<% if @dish.errors.any? %>
-  <ul>
-    <% @dish.errors.full_messages.each do |error| %>
-      <li><%= error %></li>
-    <% end %>
-  </ul>
-<% end %>
-
 <%= render 'form' %>
 
 <%= link_to 'Voltar', root_path %>
