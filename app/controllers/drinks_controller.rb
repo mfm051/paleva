@@ -1,6 +1,6 @@
 class DrinksController < ApplicationController
   before_action :build_drink, only: [:new, :create]
-  before_action :get_drink_by_id, only: [:edit, :update]
+  before_action :get_drink_by_id, only: [:edit, :update, :destroy]
 
   def new; end
 
@@ -24,6 +24,11 @@ class DrinksController < ApplicationController
       flash.now[:alert] = 'Bebida não atualizada'
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @drink.delete
+    redirect_to root_path, notice: 'Bebida removida com sucesso'
   end
 
   private

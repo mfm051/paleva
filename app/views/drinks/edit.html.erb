@@ -2,4 +2,5 @@
 
 <%= render 'form' %>
 
+<%= button_to 'Remover bebida', @drink, method: :delete, form: { data: { turbo_confirm: 'Você tem certeza?' } } %>
 <%= link_to 'Voltar', root_path %>
