@@ -8,20 +8,6 @@
   </ul>
 <% end %>
 
-<%= form_with model: @dish do |f| %>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-  <div>
-    <%= f.label :description %>
-    <%= f.text_field :description %>
-  </div>
-  <div>
-    <%= f.label :calories %>
-    <%= f.number_field :calories %>
-  </div>
-  <%= f.submit 'Salvar' %>
-<% end %>
+<%= render 'form' %>
 
 <%= link_to 'Voltar', root_path %>
