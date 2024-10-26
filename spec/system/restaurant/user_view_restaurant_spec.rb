@@ -30,7 +30,7 @@ describe 'Usuário vê seu restaurante na tela inicial' do
     expect(page).to have_content 'Valor energético: 400 kcal'
     expect(page).to have_content 'Entrada'
     expect(page).to have_content 'Salada de Palmito e Agrião'
-    expect(page).to have_css("img[src*='dish_test.jpg']")
+    expect(page).to have_css "img[src*='dish_test.jpg']"
     expect(page).to have_content 'Salada'
   end
 
@@ -57,6 +57,8 @@ describe 'Usuário vê seu restaurante na tela inicial' do
     drink2 = restaurant.drinks.create!(name: 'Mistério', alcoholic: true, description: 'Vermouth Dourado infusionado'\
                                       ' com grãos de café, Bacardi 8 anos, licor Grand Marnier e Bitter Aromatic.')
 
+    drink2.illustration.attach(io: File.open('spec/fixtures/drink_test.jpg'), filename: 'drink_test.jpg')
+
     login_as(owner)
     visit root_path
 
@@ -66,6 +68,7 @@ describe 'Usuário vê seu restaurante na tela inicial' do
     expect(page).to have_content drink1.description
     expect(page).to have_content 'Mistério'
     expect(page).to have_content drink2.description
+    expect(page).to have_css "img[src*='drink_test.jpg']"
     expect(page).to have_content "contém álcool"
   end
 

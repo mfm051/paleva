@@ -29,6 +29,9 @@
   <ul>
     <% @restaurant.drinks.each do |drink| %>
       <li>
+        <% if drink.illustration.attached? %>
+          <%= image_tag(drink.illustration) %>
+        <% end %>
         <h3><%= link_to drink.name, edit_drink_path(drink) %></h3>
         <p><%= drink.description %></p>
         <% if drink.calories %>
