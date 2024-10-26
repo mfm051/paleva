@@ -10,7 +10,7 @@ class DrinksController < ApplicationController
     if @drink.save
       redirect_to root_path, notice: 'Bebida cadastrada com sucesso'
     else
-      flash.alert = 'Bebida não cadastrada'
+      flash.now[:alert] = 'Bebida não cadastrada'
       render :new, status: :unprocessable_entity
     end
   end
@@ -19,7 +19,10 @@ class DrinksController < ApplicationController
 
   def update
     if @drink.update(params_drink)
-      redirect_to root_path
+      redirect_to root_path, notice: 'Bebida atualizada com sucesso'
+    else
+      flash.now[:alert] = 'Bebida não atualizada'
+      render :edit, status: :unprocessable_entity
     end
   end
 
