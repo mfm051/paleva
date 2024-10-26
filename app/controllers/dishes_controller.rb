@@ -1,6 +1,6 @@
 class DishesController < ApplicationController
   before_action :build_dish, only: [:new, :create]
-  before_action :get_dish_by_id, only: [:edit, :update]
+  before_action :get_dish_by_id, only: [:edit, :update, :destroy]
 
   def new; end
 
@@ -24,6 +24,11 @@ class DishesController < ApplicationController
       flash.now[:alert] = 'Prato não atualizado'
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @dish.delete
+    redirect_to root_path, notice: 'Prato removido com sucesso'
   end
 
   private

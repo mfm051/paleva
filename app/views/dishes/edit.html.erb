@@ -2,4 +2,5 @@
 
 <%= render 'form' %>
 
+<%= button_to 'Remover prato', @dish, method: :delete, form: { data: { turbo_confirm: 'Você tem certeza?' } } %>
 <%= link_to 'Voltar', root_path %>

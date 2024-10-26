@@ -7,7 +7,7 @@ describe 'Usuário edita prato' do
     restaurant = owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',
                             cnpj: '25401196000157', full_address: 'Rua das Flores, 10', phone: '1525017617',
                             email: 'afigueira@email.com')
-    dish = restaurant.dishes.create!(name: 'Provoleta de Cabra grelhada', description: 'Entrada', calories: 400)
+    restaurant.dishes.create!(name: 'Provoleta de Cabra grelhada', description: 'Entrada', calories: 400)
 
     login_as owner
     visit root_path

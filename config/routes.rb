@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :owners, controllers: {registrations: "registrations"}
   resource :restaurant, only: [:new, :create]
   resolve('Restaurant') { [:restaurant] }
-  resources :dishes, only: [:new, :create, :edit, :update]
+  resources :dishes, only: [:new, :create, :edit, :update, :destroy]
   resources :drinks, only: [:new, :create, :edit, :update]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
