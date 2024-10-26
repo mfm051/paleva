@@ -26,7 +26,7 @@
   <ul>
     <% @restaurant.drinks.each do |drink| %>
       <li>
-        <h3><%= drink.name %></h3>
+        <h3><%= link_to drink.name, edit_drink_path(drink) %></h3>
         <p><%= drink.description %></p>
         <% if drink.calories %>
           <p>Valor energético: <%= drink.calories %> kcal</p>

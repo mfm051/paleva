@@ -1,31 +1,5 @@
 <h1>Nova bebida</h1>
 
-<% if @drink.errors.any? %>
-  <ul>
-    <% @drink.errors.full_messages.each do |error| %>
-      <li><%= error %></li>
-    <% end %>
-  </ul>
-<% end %>
-
-<%= form_with model: @drink do |f| %>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-  <div>
-    <%= f.label :description %>
-    <%= f.text_field :description %>
-  </div>
-  <div>
-    <%= f.label :calories %>
-    <%= f.number_field :calories %>
-  </div>
-  <div>
-    <%= f.label :alcoholic %>
-    <%= f.check_box :alcoholic %>
-  </div>
-  <%= f.submit 'Salvar' %>
-<% end %>
+<%= render 'form' %>
 
 <%= link_to 'Voltar', root_path %>
