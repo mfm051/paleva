@@ -14,6 +14,10 @@
     <%= f.number_field :calories %>
   </div>
   <div>
+    <%= f.label :illustration %>
+    <%= f.file_field :illustration, accept: 'image/*' %>
+  </div>
+  <div>
     <%= f.label :alcoholic %>
     <%= f.check_box :alcoholic %>
   </div>

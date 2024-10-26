@@ -14,12 +14,14 @@ describe 'Usuário cadastra bebida' do
     fill_in 'Nome', with: 'Drink da casa'
     fill_in 'Descrição', with: 'Bebida chique'
     fill_in 'Quantidade de calorias', with: '10'
+    attach_file 'Imagem ilustrativa', file_fixture('drink_test.jpg')
     check 'Alcoólica'
     click_on 'Salvar'
 
     expect(current_path).to eq root_path
     expect(page).to have_content 'Bebida cadastrada com sucesso'
     expect(page).to have_content 'Drink da casa'
+    expect(page).to have_css "img[src*='drink_test.jpg']"
     expect(page).to have_content 'contém álcool'
   end
 
