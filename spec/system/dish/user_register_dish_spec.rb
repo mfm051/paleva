@@ -14,7 +14,7 @@ describe 'Usuário registra um prato para seu estabelecimento' do
     fill_in 'Nome', with: 'Provoleta de Cabra grelhada'
     fill_in 'Descrição', with: 'Entrada'
     fill_in 'Quantidade de calorias', with: '100'
-    attach_file 'Imagem ilustrativa', 'spec/fixtures/dish_test.jpg'
+    attach_file 'Imagem ilustrativa', file_fixture('dish_test.jpg')
     click_on 'Salvar'
 
     expect(current_path).to eq root_path

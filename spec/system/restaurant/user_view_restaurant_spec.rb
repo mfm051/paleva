@@ -20,7 +20,7 @@ describe 'Usuário vê seu restaurante na tela inicial' do
     restaurant.dishes.create!(name: 'Provoleta de Cabra grelhada', description: 'Entrada', calories: 400)
     with_image = restaurant.dishes.create!(name: 'Salada de Palmito e Agrião', description: 'Salada')
 
-    with_image.illustration.attach(io: File.open('spec/fixtures/dish_test.jpg'), filename: 'dish_test.jpg')
+    with_image.illustration.attach(io: file_fixture('drink_test.jpg').open, filename: 'dish_test.jpg')
 
     login_as(owner)
     visit root_path
@@ -57,7 +57,7 @@ describe 'Usuário vê seu restaurante na tela inicial' do
     drink2 = restaurant.drinks.create!(name: 'Mistério', alcoholic: true, description: 'Vermouth Dourado infusionado'\
                                       ' com grãos de café, Bacardi 8 anos, licor Grand Marnier e Bitter Aromatic.')
 
-    drink2.illustration.attach(io: File.open('spec/fixtures/drink_test.jpg'), filename: 'drink_test.jpg')
+    drink2.illustration.attach(io: file_fixture('drink_test.jpg').open, filename: 'drink_test.jpg')
 
     login_as(owner)
     visit root_path
