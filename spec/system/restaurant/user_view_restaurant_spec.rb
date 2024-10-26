@@ -18,7 +18,9 @@ describe 'Usuário vê seu restaurante na tela inicial' do
                             cnpj: '25401196000157', full_address: 'Rua das Flores, 10', phone: '1525017617',
                             email: 'afigueira@email.com')
     restaurant.dishes.create!(name: 'Provoleta de Cabra grelhada', description: 'Entrada', calories: 400)
-    restaurant.dishes.create!(name: 'Salada de Palmito e Agrião', description: 'Salada')
+    with_image = restaurant.dishes.create!(name: 'Salada de Palmito e Agrião', description: 'Salada')
+
+    with_image.illustration.attach(io: File.open('spec/fixtures/dish_test.jpg'), filename: 'dish_test.jpg')
 
     login_as(owner)
     visit root_path
@@ -28,6 +30,7 @@ describe 'Usuário vê seu restaurante na tela inicial' do
     expect(page).to have_content 'Valor energético: 400 kcal'
     expect(page).to have_content 'Entrada'
     expect(page).to have_content 'Salada de Palmito e Agrião'
+    expect(page).to have_css("img[src*='dish_test.jpg']")
     expect(page).to have_content 'Salada'
   end
 
