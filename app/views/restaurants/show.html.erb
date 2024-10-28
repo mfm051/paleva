@@ -6,10 +6,8 @@
   <ul>
     <% @restaurant.dishes.each do |dish| %>
       <li>
-        <% if dish.illustration.attached? %>
-          <%= image_tag(dish.illustration) %>
-        <% end %>
-        <h3><%= link_to dish.name, edit_dish_path(dish) %></h3>
+        <%= render 'illustration', item: dish %>
+        <h3><%= link_to dish.name, edit_dish_path(dish)%></h3>
         <p><%= dish.description %></p>
         <% if dish.calories %>
           <p>Valor energético: <%= dish.calories %> kcal</p>
@@ -29,15 +27,13 @@
   <ul>
     <% @restaurant.drinks.each do |drink| %>
       <li>
-        <% if drink.illustration.attached? %>
-          <%= image_tag(drink.illustration) %>
-        <% end %>
+        <%= render 'illustration', item: drink %>
         <h3><%= link_to drink.name, edit_drink_path(drink) %></h3>
         <p><%= drink.description %></p>
         <% if drink.calories %>
           <p>Valor energético: <%= drink.calories %> kcal</p>
         <% end %>
-        <% if drink.alcoholic? %>
+        <% if drink.alcoholic %>
           <p>contém álcool</p>
         <% end %>
       </li>
