@@ -21,6 +21,15 @@
     <header>
       <nav>
         <% if current_owner %>
+
+          <% if current_owner.restaurant.persisted? %>
+            <%= form_with url: "/search", method: :get do |f| %>
+              <%= f.label :query, 'Busca' %>
+              <%= f.text_field :query %>
+              <%= f.submit 'Buscar' %>
+            <% end %>
+          <% end %>
+
           <%= button_to 'Sair', destroy_owner_session_path, method: :delete %>
         <% end %>
       </nav>

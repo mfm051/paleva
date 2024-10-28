@@ -5,9 +5,7 @@ class RestaurantsController < ApplicationController
     if current_owner.restaurant.present?
       @restaurant = current_owner.restaurant
     else
-      @restaurant = current_owner.build_restaurant
-      flash.now[:notice] = 'Para continuar, registre seu estabelecimento'
-      render :new
+      redirect_to new_restaurant_path, alert: 'Para continuar, registre seu estabelecimento'
     end
   end
 
@@ -25,5 +23,13 @@ class RestaurantsController < ApplicationController
       flash.now[:notice] = 'Restaurante não cadastrado'
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def search
+    @restaurant = current_owner.restaurant
+    @query = params[:query]
+
+    @dishes = @restaurant.dishes.where("name LIKE :query OR description LIKE :query", query: "%#{@query}%")
+    @drinks = @restaurant.drinks.where("name LIKE :query OR description LIKE :query", query: "%#{@query}%")
   end
 end

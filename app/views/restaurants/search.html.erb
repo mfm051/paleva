@@ -1,0 +1,23 @@
+<% if @dishes.empty? && @drinks.empty? %>
+  <p>Nenhum resultado de busca para <%= @query %> </p>
+<% else %>
+  <% if @dishes.any? %>
+    <p><%= @dishes.count %> <%= Dish.model_name.human(count: @dishes.count).downcase %> <%= t(:found_m, count: @dishes.count) %>:</p>
+    <ul>
+      <% @dishes.each do |dish| %>
+        <li><%= link_to dish.name, edit_dish_path(dish) %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <% if @drinks.any? %>
+    <p><%= @drinks.count %> <%= Drink.model_name.human(count: @drinks.count).downcase %> <%= t(:found_f, count: @drinks.count) %>:</p>
+    <ul>
+      <% @drinks.each do |drink| %>
+        <li><%= link_to drink.name, edit_drink_path(drink) %></li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>
+
+<%= link_to 'Voltar', root_path %>
