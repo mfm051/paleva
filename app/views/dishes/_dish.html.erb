@@ -1,0 +1,6 @@
+<%= render 'shared/illustration', item: dish %>
+<h3><%= link_to dish.name, edit_dish_path(dish)%></h3>
+<p><%= dish.description %></p>
+<% if dish.calories %>
+  <p>Valor energético: <%= dish.calories %> kcal</p>
+<% end %>

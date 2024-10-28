@@ -5,14 +5,7 @@
 <% if @restaurant.dishes.any? %>
   <ul>
     <% @restaurant.dishes.each do |dish| %>
-      <li>
-        <%= render 'illustration', item: dish %>
-        <h3><%= link_to dish.name, edit_dish_path(dish)%></h3>
-        <p><%= dish.description %></p>
-        <% if dish.calories %>
-          <p>Valor energético: <%= dish.calories %> kcal</p>
-        <% end %>
-      </li>
+      <li><%= render dish %></li>
     <% end %>
   </ul>
 <% else %>
@@ -26,17 +19,7 @@
 <% if @restaurant.drinks.any? %>
   <ul>
     <% @restaurant.drinks.each do |drink| %>
-      <li>
-        <%= render 'illustration', item: drink %>
-        <h3><%= link_to drink.name, edit_drink_path(drink) %></h3>
-        <p><%= drink.description %></p>
-        <% if drink.calories %>
-          <p>Valor energético: <%= drink.calories %> kcal</p>
-        <% end %>
-        <% if drink.alcoholic %>
-          <p>contém álcool</p>
-        <% end %>
-      </li>
+      <li><%= render drink %></li>
     <% end %>
   </ul>
 <% else %>
