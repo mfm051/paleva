@@ -60,7 +60,7 @@ RSpec.describe Owner, type: :model do
 
         owner.valid?
 
-        expect(owner.errors[:cpf]).to include 'deve ter 11 caracteres'
+        expect(owner.errors[:cpf]).to include 'não possui o tamanho esperado (11 caracteres)'
       end
 
       it 'retorna falso para valor muito longo' do
@@ -68,7 +68,7 @@ RSpec.describe Owner, type: :model do
 
         owner.valid?
 
-        expect(owner.errors[:cpf]).to include 'deve ter 11 caracteres'
+        expect(owner.errors[:cpf]).to include 'não possui o tamanho esperado (11 caracteres)'
       end
 
       it 'retorna falso para valor não numérico' do

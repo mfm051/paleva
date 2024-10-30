@@ -84,7 +84,7 @@ RSpec.describe Restaurant, type: :model do
 
         restaurant.valid?
 
-        expect(restaurant.errors[:cnpj]).to include 'deve ter 14 caracteres'
+        expect(restaurant.errors[:cnpj]).to include 'não possui o tamanho esperado (14 caracteres)'
       end
 
       it 'retorna falso para valor muito longo' do
@@ -92,7 +92,7 @@ RSpec.describe Restaurant, type: :model do
 
         restaurant.valid?
 
-        expect(restaurant.errors[:cnpj]).to include 'deve ter 14 caracteres'
+        expect(restaurant.errors[:cnpj]).to include 'não possui o tamanho esperado (14 caracteres)'
       end
 
       it 'retorna falso para valores não numéricos' do
@@ -165,6 +165,32 @@ RSpec.describe Restaurant, type: :model do
         restaurant.valid?
 
         expect(restaurant.errors[:code]).to include 'já está em uso'
+      end
+    end
+
+    context 'quando telefone é inválido' do
+      it 'retorna falso para valor com menos de 10 caracteres' do
+        restaurant = Restaurant.new(phone: '123456789')
+
+        restaurant.valid?
+
+        expect(restaurant.errors[:phone]).to include 'é muito curto (mínimo: 10 caracteres)'
+      end
+
+      it 'retorna falso para valor com mais de 11 caracteres' do
+        restaurant = Restaurant.new(phone: '123456789111')
+
+        restaurant.valid?
+
+        expect(restaurant.errors[:phone]).to include 'é muito longo (máximo: 11 caracteres)'
+      end
+
+      it 'retorna falso para valor não numérico' do
+        restaurant = Restaurant.new(phone: '1234567891A')
+
+        restaurant.valid?
+
+        expect(restaurant.errors[:phone]).to include 'deve ser composto apenas por números'
       end
     end
   end
