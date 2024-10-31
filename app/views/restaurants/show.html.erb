@@ -1,29 +1,17 @@
 <h1><%= @restaurant.brand_name %></h1>
+<p><%= @restaurant.corporate_name %></p>
 
-<h2>Pratos</h2>
+<dl>
+  <dt><%= Restaurant.human_attribute_name('code') %>:</dt>
+  <dd><%= @restaurant.code %></dd>
+  <dt><%= Restaurant.human_attribute_name('cnpj') %>:</dt>
+  <dd><%= @restaurant.cnpj %></dd>
+  <dt><%= Restaurant.human_attribute_name('full_address') %>:</dt>
+  <dd><%= @restaurant.full_address %></dd>
+  <dt><%= Restaurant.human_attribute_name('phone') %>:</dt>
+  <dd><%= @restaurant.phone %></dd>
+  <dt><%= Restaurant.human_attribute_name('email') %>:</dt>
+  <dd><%= @restaurant.email %></dd>
+</dl>
 
-<% if @restaurant.dishes.any? %>
-  <ul>
-    <% @restaurant.dishes.each do |dish| %>
-      <li><%= render dish %></li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>Ainda não há pratos cadastrados</p>
-<% end %>
-
-<%= link_to 'Novo prato', new_dish_path %>
-
-<h2>Bebidas</h2>
-
-<% if @restaurant.drinks.any? %>
-  <ul>
-    <% @restaurant.drinks.each do |drink| %>
-      <li><%= render drink %></li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>Ainda não há bebidas cadastradas</p>
-<% end %>
-
-<%= link_to 'Nova bebida', new_drink_path %>
+<%= link_to 'Voltar', root_path %>

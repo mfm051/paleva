@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  root 'restaurants#show'
+  root 'home#index'
 
   devise_for :owners, controllers: {registrations: "registrations"}
 
-  resource :restaurant, only: [:new, :create]
+  resource :restaurant, only: [:show, :new, :create]
   resolve('Restaurant') { [:restaurant] }
 
   get '/search', to: "restaurants#search"

@@ -13,9 +13,10 @@ describe 'Usuário registra seu estabelecimento' do
     fill_in 'Endereço', with: 'Rua das Flores, 10'
     fill_in 'Telefone', with: '1525017617'
     fill_in 'E-mail', with: 'afigueira@email.com'
+
     click_on 'Cadastrar'
 
-    expect(current_path).to eq root_path
+    expect(current_path).to eq restaurant_path
     expect(page).to have_content 'Restaurante cadastrado com sucesso'
     expect(page).to have_content 'A Figueira Rubista'
   end

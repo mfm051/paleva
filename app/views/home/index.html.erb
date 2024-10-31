@@ -1,0 +1,29 @@
+<h1><%= @restaurant.brand_name %></h1>
+
+<h2>Pratos</h2>
+
+<% if @restaurant.dishes.any? %>
+  <ul>
+    <% @restaurant.dishes.each do |dish| %>
+      <li><%= render dish %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Ainda não há pratos cadastrados</p>
+<% end %>
+
+<%= link_to 'Novo prato', new_dish_path %>
+
+<h2>Bebidas</h2>
+
+<% if @restaurant.drinks.any? %>
+  <ul>
+    <% @restaurant.drinks.each do |drink| %>
+      <li><%= render drink %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Ainda não há bebidas cadastradas</p>
+<% end %>
+
+<%= link_to 'Nova bebida', new_drink_path %>

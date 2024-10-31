@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário vê seu restaurante na tela inicial' do
+describe 'Usuário vê itens de seu restaurante na tela inicial' do
   it 'somente se já o tiver cadastrado' do
     owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
                               password: '123456789012')

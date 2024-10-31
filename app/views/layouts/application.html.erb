@@ -23,6 +23,8 @@
         <% if current_owner %>
 
           <% if current_owner.restaurant.persisted? %>
+            <%= link_to 'Informações do restaurante', restaurant_path %>
+
             <%= form_with url: "/search", method: :get do |f| %>
               <%= f.label :query, 'Busca' %>
               <%= f.text_field :query %>
