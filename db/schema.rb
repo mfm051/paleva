@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_26_180626) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_31_131527) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -89,9 +89,21 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_26_180626) do
     t.index ["owner_id"], name: "index_restaurants_on_owner_id"
   end
 
+  create_table "schedules", force: :cascade do |t|
+    t.integer "weekday"
+    t.time "start_time"
+    t.time "end_time"
+    t.integer "restaurant_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "active", default: false
+    t.index ["restaurant_id"], name: "index_schedules_on_restaurant_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "dishes", "restaurants"
   add_foreign_key "drinks", "restaurants"
   add_foreign_key "restaurants", "owners"
+  add_foreign_key "schedules", "restaurants"
 end

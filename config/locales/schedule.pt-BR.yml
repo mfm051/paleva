@@ -1,0 +1,10 @@
+pt-BR:
+  activerecord:
+    models:
+      schedule:
+        one: Horário de funcionamento
+        other: Horários de funcionamento
+    attributes:
+      schedule:
+        start_time: "Horário de início"
+        end_time: "Horário de término"

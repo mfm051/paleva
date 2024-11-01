@@ -4,14 +4,25 @@
 <dl>
   <dt><%= Restaurant.human_attribute_name('code') %>:</dt>
   <dd><%= @restaurant.code %></dd>
+
   <dt><%= Restaurant.human_attribute_name('cnpj') %>:</dt>
   <dd><%= @restaurant.cnpj %></dd>
+
   <dt><%= Restaurant.human_attribute_name('full_address') %>:</dt>
   <dd><%= @restaurant.full_address %></dd>
+
   <dt><%= Restaurant.human_attribute_name('phone') %>:</dt>
   <dd><%= @restaurant.phone %></dd>
+
   <dt><%= Restaurant.human_attribute_name('email') %>:</dt>
   <dd><%= @restaurant.email %></dd>
 </dl>
+
+<ul>
+  <p><%= Schedule.model_name.human(count: 2) %>:</p>
+  <% @restaurant.schedules.each do |schedule| %>
+    <li><%= t schedule.weekday %>: das <%= schedule.start_time.to_fs(:time) %> às <%= schedule.end_time.to_fs(:time) %></li>
+  <% end %>
+</ul>
 
 <%= link_to 'Voltar', root_path %>

@@ -18,7 +18,7 @@ class RestaurantsController < ApplicationController
                                                           :email)
     @restaurant = current_owner.build_restaurant(restaurant_params)
     if @restaurant.save
-      redirect_to root_path, notice: 'Restaurante cadastrado com sucesso'
+      redirect_to restaurant_path, notice: 'Restaurante cadastrado com sucesso'
     else
       flash.now[:notice] = 'Restaurante não cadastrado'
       render :new, status: :unprocessable_entity
