@@ -6,5 +6,6 @@ pt-BR:
         other: Horários de funcionamento
     attributes:
       schedule:
-        start_time: "Horário de início"
-        end_time: "Horário de término"
+        start_time: "Horário de abertura"
+        end_time: "Horário de fechamento"
+        weekday: "Dia da semana"

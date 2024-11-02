@@ -2,7 +2,7 @@ class Restaurant < ApplicationRecord
   belongs_to :owner
   has_many :dishes, dependent: :destroy
   has_many :drinks, dependent: :destroy
-  has_many :schedules
+  has_many :schedules, dependent: :destroy
 
   before_validation :generate_code
 

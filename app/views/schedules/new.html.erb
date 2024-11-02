@@ -1,0 +1,17 @@
+<h1>Novo horário de funcionamento</h1>
+
+<%= form_with model: [@restaurant, @schedule] do |f| %>
+  <div>
+    <%= f.label :weekday %>
+    <%= f.select :weekday, @weekdays_translated %>
+  </div>
+  <div>
+    <%= f.label :start_time %>
+    <%= f.time_field :start_time %>
+  </div>
+  <div>
+    <%= f.label :end_time %>
+    <%= f.time_field :end_time %>
+  </div>
+  <%= f.submit 'Salvar' %>
+<% end %>

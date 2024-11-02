@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   devise_for :owners, controllers: {registrations: "registrations"}
 
-  resource :restaurant, only: [:show, :new, :create]
+  resource :restaurant, only: [:show, :new, :create] do
+    resources :schedules, only: [:new, :create]
+  end
   resolve('Restaurant') { [:restaurant] }
 
   get '/search', to: "restaurants#search"

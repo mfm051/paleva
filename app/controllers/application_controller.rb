@@ -9,4 +9,8 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:cpf, :name, :surname])
   end
+
+  def get_restaurant
+    @restaurant = current_owner.restaurant
+  end
 end
