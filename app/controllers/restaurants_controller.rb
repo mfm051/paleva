@@ -1,12 +1,9 @@
 class RestaurantsController < ApplicationController
   before_action :authenticate_owner!
+  before_action :get_restaurant, only: [:show]
 
   def show
-    if current_owner.restaurant.present?
-      @restaurant = current_owner.restaurant
-    else
-      redirect_to new_restaurant_path, alert: 'Para continuar, registre seu estabelecimento'
-    end
+    @schedules = @restaurant.schedules.where(active: true)
   end
 
   def new

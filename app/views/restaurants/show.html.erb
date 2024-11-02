@@ -20,7 +20,7 @@
 
 <ul>
   <p><%= Schedule.model_name.human(count: 2) %>:</p>
-  <% @restaurant.schedules.each do |schedule| %>
+  <% @schedules.each do |schedule| %>
     <li><%= t schedule.weekday %>: das <%= schedule.start_time.to_fs(:time) %> às <%= schedule.end_time.to_fs(:time) %></li>
   <% end %>
 </ul>

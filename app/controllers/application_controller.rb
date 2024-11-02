@@ -11,6 +11,10 @@ class ApplicationController < ActionController::Base
   end
 
   def get_restaurant
-    @restaurant = current_owner.restaurant
+    if current_owner.restaurant.present?
+      @restaurant = current_owner.restaurant
+    else
+      return redirect_to new_restaurant_path, alert: 'Para continuar, registre seu estabelecimento'
+    end
   end
 end
