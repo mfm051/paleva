@@ -3,15 +3,17 @@ class SchedulesController < ApplicationController
 
   def new
     @schedule = @restaurant.schedules.build
-    @weekdays_translated = Schedule.weekdays.keys.map { |day| [t(day), day] }
   end
 
   def create
     @schedule = @restaurant.schedules.build(schedule_params)
-    @weekdays_translated = Schedule.weekdays.keys.map { |day| [t(day), day] }
 
-    @schedule.save!
-    redirect_to restaurant_path, notice: 'Horário registrado com sucesso'
+    if @schedule.save
+      redirect_to restaurant_path, notice: 'Horário registrado com sucesso'
+    else
+      flash.now[:alert] = 'Horário não registrado'
+      render :new, status: :unprocessable_entity
+    end
   end
 
   private
