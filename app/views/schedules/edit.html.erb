@@ -1,0 +1,25 @@
+<h1>Editar horários de funcionamento</h1>
+
+<%= form_with model: @restaurant, url: restaurant_schedules_path do |f| %>
+
+  <ul>
+    <% @restaurant.schedules.each do |schedule| %>
+      <li id=<%= schedule.weekday %>>
+
+        <%= f.fields_for :schedules, schedule do |sch_f| %>
+          <div>
+            <%= sch_f.label :active %>
+            <%= sch_f.check_box :active %>
+          </div>
+          <div>
+            <%= sch_f.label :start_time %>
+            <%= sch_f.time_field :start_time %>
+          </div>
+        <% end %>
+
+      </li>
+    <% end %>
+  </ul>
+
+  <%= f.submit 'Salvar' %>
+<% end %>

@@ -9,3 +9,4 @@ pt-BR:
         start_time: "Horário de abertura"
         end_time: "Horário de fechamento"
         weekday: "Dia da semana"
+        active: "Aberto"

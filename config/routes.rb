@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resource :restaurant, only: [:show, :new, :create] do
     resources :schedules, only: [:new, :create]
+    resource :schedules, only: [:edit, :update]
   end
   resolve('Restaurant') { [:restaurant] }
 
