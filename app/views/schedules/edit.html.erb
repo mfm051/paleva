@@ -4,8 +4,11 @@
 
   <ul>
     <% @restaurant.schedules.each do |schedule| %>
-      <li id=<%= schedule.weekday %>>
 
+      <%= render 'shared/form_errors', object: schedule %>
+
+      <li id=<%= schedule.weekday %>>
+        <p><%= t schedule.weekday %></p>
         <%= f.fields_for :schedules, schedule do |sch_f| %>
           <div>
             <%= sch_f.label :active %>
@@ -13,7 +16,10 @@
           </div>
           <div>
             <%= sch_f.label :start_time %>
-            <%= sch_f.time_field :start_time %>
+            <%= sch_f.time_field :start_time, include_seconds: false %>
+
+            <%= sch_f.label :end_time %>
+            <%= sch_f.time_field :end_time, include_seconds: false %>
           </div>
         <% end %>
 

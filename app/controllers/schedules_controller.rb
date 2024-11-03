@@ -20,7 +20,10 @@ class SchedulesController < ApplicationController
 
   def update
     if @restaurant.update(restaurant_schedules_params)
-      redirect_to restaurant_path, notice: 'Horários editados com sucesso'
+      redirect_to restaurant_path, notice: 'Horários atualizados com sucesso'
+    else
+      flash.now[:alert] = 'Atualização não realizada'
+      render :edit, status: :unprocessable_entity
     end
   end
 
