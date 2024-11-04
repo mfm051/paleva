@@ -11,7 +11,10 @@ Rails.application.routes.draw do
 
   get '/search', to: "restaurants#search"
 
-  resources :dishes, only: [:show, :new, :create, :edit, :update, :destroy]
+  resources :dishes, only: [:show, :new, :create, :edit, :update, :destroy] do
+    put 'deactivate', on: :member
+    put 'activate', on: :member
+  end
   resources :drinks, only: [:new, :create, :edit, :update, :destroy]
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

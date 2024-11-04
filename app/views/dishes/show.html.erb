@@ -1,4 +1,5 @@
 <h2><%= @dish.name %></h2>
+<p><%= Dish.human_attribute_name('Status') %>: <%= t @dish.status %></p>
 <%= render 'shared/illustration', item: @dish %>
 <p><%= @dish.description %></p>
 
@@ -9,5 +10,11 @@
 <%= link_to 'Editar prato', edit_dish_path(@dish) %>
 
 <%= button_to 'Remover prato', @dish, method: :delete, form: { data: { turbo_confirm: 'Você tem certeza?' } } %>
+
+<% if @dish.active? %>
+  <%= button_to 'Desativar', deactivate_dish_path(@dish), method: :put %>
+<% else %>
+  <%= button_to 'Ativar', activate_dish_path(@dish), method: :put %>
+<% end %>
 
 <%= link_to 'Voltar', root_path %>

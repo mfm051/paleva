@@ -1,6 +1,6 @@
 class DishesController < ApplicationController
   before_action :build_dish, only: [:new, :create]
-  before_action :get_dish_by_id, only: [:show, :edit, :update, :destroy]
+  before_action :get_dish_by_id, only: [:show, :edit, :update, :destroy, :deactivate, :activate]
 
   def show; end
 
@@ -26,6 +26,18 @@ class DishesController < ApplicationController
       flash.now[:alert] = 'Prato não atualizado'
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def deactivate
+    @dish.inactive!
+
+    redirect_to dish_path(@dish)
+  end
+
+  def activate
+    @dish.active!
+
+    redirect_to dish_path(@dish)
   end
 
   def destroy

@@ -7,7 +7,8 @@ describe 'Usuário vê detalhes de um prato' do
     restaurant = owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',
                             cnpj: '25401196000157', full_address: 'Rua das Flores, 10', phone: '1525017617',
                             email: 'afigueira@email.com')
-    dish = restaurant.dishes.create!(name: 'Provoleta de Cabra grelhada', description: 'Entrada', calories: 400)
+    dish = restaurant.dishes.create!(name: 'Provoleta de Cabra grelhada', description: 'Entrada', calories: 400,
+                                     status: 'active')
     dish.illustration.attach(io: file_fixture('drink_test.jpg').open, filename: 'dish_test.jpg')
 
     login_as owner
@@ -15,6 +16,7 @@ describe 'Usuário vê detalhes de um prato' do
     click_on 'Provoleta de Cabra grelhada'
 
     expect(page).to have_content 'Provoleta de Cabra grelhada'
+    expect(page).to have_content 'Status: Ativo'
     expect(page).to have_css "img[src*='dish_test.jpg']"
     expect(page).to have_content 'Entrada'
     expect(page).to have_content 'Valor energético: 400 kcal'

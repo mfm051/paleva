@@ -5,7 +5,7 @@ describe 'Usuário vê itens de seu restaurante na tela inicial' do
     owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
                               password: '123456789012')
 
-    login_as(owner)
+    login_as owner
     visit root_path
 
     expect(page).to have_content 'Para continuar, registre seu estabelecimento'
@@ -17,17 +17,17 @@ describe 'Usuário vê itens de seu restaurante na tela inicial' do
     restaurant = owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',
                             cnpj: '25401196000157', full_address: 'Rua das Flores, 10', phone: '1525017617',
                             email: 'afigueira@email.com')
-    restaurant.dishes.create!(name: 'Provoleta de Cabra grelhada', description: 'Entrada', calories: 400)
-    with_image = restaurant.dishes.create!(name: 'Salada de Palmito e Agrião', description: 'Salada')
+    restaurant.dishes.create!(name: 'Provoleta de Cabra grelhada', description: 'Entrada', calories: 400, status: 'active')
+    with_image = restaurant.dishes.create!(name: 'Salada de Palmito e Agrião', description: 'Salada', status: 'inactive')
 
-    with_image.illustration.attach(io: file_fixture('drink_test.jpg').open, filename: 'dish_test.jpg')
+    with_image.illustration.attach(io: file_fixture('dish_test.jpg').open, filename: 'dish_test.jpg')
 
-    login_as(owner)
+    login_as owner
     visit root_path
 
     expect(page).to have_content 'Pratos'
-    expect(page).to have_content 'Provoleta de Cabra grelhada'
-    expect(page).to have_content 'Salada de Palmito e Agrião'
+    expect(page).to have_content 'Provoleta de Cabra grelhada (ativo)'
+    expect(page).to have_content 'Salada de Palmito e Agrião (inativo)'
     expect(page).to have_css "img[src*='dish_test.jpg']"
   end
 
