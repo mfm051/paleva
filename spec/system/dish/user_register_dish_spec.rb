@@ -4,7 +4,7 @@ describe 'Usuário registra um prato para seu estabelecimento' do
   it 'a partir da tela inicial' do
     owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
                               password: '123456789012')
-    owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',
+    restaurant = owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',
                             cnpj: '25401196000157', full_address: 'Rua das Flores, 10', phone: '1525017617',
                             email: 'afigueira@email.com')
 
@@ -17,9 +17,11 @@ describe 'Usuário registra um prato para seu estabelecimento' do
     attach_file 'Imagem ilustrativa', file_fixture('dish_test.jpg')
     click_on 'Salvar'
 
-    expect(current_path).to eq root_path
+    expect(current_path).to eq dish_path(restaurant.dishes.last)
     expect(page).to have_content 'Prato cadastrado com sucesso'
     expect(page).to have_content 'Provoleta de Cabra grelhada'
+    expect(page).to have_content 'Entrada'
+    expect(page).to have_content 'Valor energético: 100 kcal'
     expect(page).to have_css "img[src*='dish_test.jpg']"
   end
 
@@ -31,8 +33,7 @@ describe 'Usuário registra um prato para seu estabelecimento' do
                             email: 'afigueira@email.com')
 
     login_as owner
-    visit root_path
-    click_on 'Novo prato'
+    visit new_dish_path
     fill_in 'Nome', with: ''
     click_on 'Salvar'
 

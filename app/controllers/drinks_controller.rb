@@ -1,6 +1,8 @@
 class DrinksController < ApplicationController
   before_action :build_drink, only: [:new, :create]
-  before_action :get_drink_by_id, only: [:edit, :update, :destroy]
+  before_action :get_drink_by_id, only: [:show, :edit, :update, :destroy]
+
+  def show; end
 
   def new; end
 
@@ -8,7 +10,7 @@ class DrinksController < ApplicationController
     @drink.attributes = params_drink
 
     if @drink.save
-      redirect_to root_path, notice: 'Bebida cadastrada com sucesso'
+      redirect_to @drink, notice: 'Bebida cadastrada com sucesso'
     else
       flash.now[:alert] = 'Bebida não cadastrada'
       render :new, status: :unprocessable_entity
@@ -19,7 +21,7 @@ class DrinksController < ApplicationController
 
   def update
     if @drink.update(params_drink)
-      redirect_to root_path, notice: 'Bebida atualizada com sucesso'
+      redirect_to @drink, notice: 'Bebida atualizada com sucesso'
     else
       flash.now[:alert] = 'Bebida não atualizada'
       render :edit, status: :unprocessable_entity

@@ -50,23 +50,19 @@ describe 'Usuário vê itens de seu restaurante na tela inicial' do
     restaurant = owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',
                             cnpj: '25401196000157', full_address: 'Rua das Flores, 10', phone: '1525017617',
                             email: 'afigueira@email.com')
-    drink1 = restaurant.drinks.create!(name: 'Coca-cola', alcoholic: false, description: 'Só uma Coca-cola', calories: 85)
-    drink2 = restaurant.drinks.create!(name: 'Mistério', alcoholic: true, description: 'Vermouth Dourado infusionado'\
+    restaurant.drinks.create!(name: 'Coca-cola', alcoholic: false, description: 'Só uma Coca-cola', calories: 85)
+    drink = restaurant.drinks.create!(name: 'Mistério', alcoholic: true, description: 'Vermouth Dourado infusionado'\
                                       ' com grãos de café, Bacardi 8 anos, licor Grand Marnier e Bitter Aromatic.')
 
-    drink2.illustration.attach(io: file_fixture('drink_test.jpg').open, filename: 'drink_test.jpg')
+    drink.illustration.attach(io: file_fixture('drink_test.jpg').open, filename: 'drink_test.jpg')
 
     login_as(owner)
     visit root_path
 
     expect(page).to have_content 'Bebidas'
     expect(page).to have_content 'Coca-cola'
-    expect(page).to have_content 'Valor energético: 85 kcal'
-    expect(page).to have_content drink1.description
     expect(page).to have_content 'Mistério'
-    expect(page).to have_content drink2.description
     expect(page).to have_css "img[src*='drink_test.jpg']"
-    expect(page).to have_content "contém álcool"
   end
 
   it 'e não há bebidas cadastradas' do

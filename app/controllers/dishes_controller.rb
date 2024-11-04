@@ -10,7 +10,7 @@ class DishesController < ApplicationController
     @dish.attributes = params_dish
 
     if @dish.save
-      redirect_to root_path, notice: 'Prato cadastrado com sucesso'
+      redirect_to @dish, notice: 'Prato cadastrado com sucesso'
     else
       flash.now[:alert] = 'Prato não cadastrado'
       render :new, status: :unprocessable_entity
@@ -21,7 +21,7 @@ class DishesController < ApplicationController
 
   def update
     if @dish.update(params_dish)
-      redirect_to dish_path(@dish), notice: 'Prato atualizado com sucesso'
+      redirect_to @dish, notice: 'Prato atualizado com sucesso'
     else
       flash.now[:alert] = 'Prato não atualizado'
       render :edit, status: :unprocessable_entity

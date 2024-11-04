@@ -23,7 +23,9 @@
 <% if @restaurant.drinks.any? %>
   <ul>
     <% @restaurant.drinks.each do |drink| %>
-      <li><%= render drink %></li>
+      <%= link_to drink_path(drink) do %>
+        <%= render drink %>
+      <% end %>
     <% end %>
   </ul>
 <% else %>

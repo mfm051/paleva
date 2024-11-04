@@ -1,0 +1,11 @@
+<h2><%= @drink.name %></h2>
+<%= render 'shared/illustration', item: @drink %>
+<p><%= @drink.description %></p>
+
+<p>Valor energético: <%= @drink.calories %> kcal</p>
+
+<p><%= @drink.alcoholic? ? 'Contém álcool' : 'Não contém álcool' %></p>
+
+<%= link_to 'Editar bebida', edit_drink_path(@drink) %>
+
+<%= button_to 'Remover bebida', @drink, method: :delete, form: { data: { turbo_confirm: 'Você tem certeza?' } } %>
