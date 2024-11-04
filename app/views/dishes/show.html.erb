@@ -17,4 +17,18 @@
 
 <%= button_to 'Remover prato', @dish, method: :delete, form: { data: { turbo_confirm: 'Você tem certeza?' } } %>
 
+<h3>Porções disponíveis</h3>
+<% if @dish.portions.any? %>
+  <dl>
+    <% @dish.portions.each do |portion| %>
+      <dt><%= portion.description %>:</dt>
+      <dd><%= number_to_currency(portion.price / 100) %></dd>
+    <% end %>
+  </dl>
+<% else %>
+  <p>Não há porções cadastradas</p>
+<% end %>
+
+<%= link_to 'Adicionar porção', new_dish_portion_path(@dish) %>
+
 <%= link_to 'Voltar', root_path %>
