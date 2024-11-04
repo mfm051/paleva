@@ -1,0 +1,13 @@
+<h2><%= @dish.name %></h2>
+<%= render 'shared/illustration', item: @dish %>
+<p><%= @dish.description %></p>
+
+<% if @dish.calories %>
+  <p>Valor energético: <%= @dish.calories %> kcal</p>
+<% end %>
+
+<%= link_to 'Editar prato', edit_dish_path(@dish) %>
+
+<%= button_to 'Remover prato', @dish, method: :delete, form: { data: { turbo_confirm: 'Você tem certeza?' } } %>
+
+<%= link_to 'Voltar', root_path %>

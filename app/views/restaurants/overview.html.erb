@@ -5,7 +5,11 @@
 <% if @restaurant.dishes.any? %>
   <ul>
     <% @restaurant.dishes.each do |dish| %>
-      <li><%= render dish %></li>
+      <li>
+        <%= link_to dish_path(dish) do %>
+          <%= render dish %>
+        <% end %>
+      </li>
     <% end %>
   </ul>
 <% else %>

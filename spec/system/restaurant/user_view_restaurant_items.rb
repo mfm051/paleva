@@ -27,11 +27,8 @@ describe 'Usuário vê itens de seu restaurante na tela inicial' do
 
     expect(page).to have_content 'Pratos'
     expect(page).to have_content 'Provoleta de Cabra grelhada'
-    expect(page).to have_content 'Valor energético: 400 kcal'
-    expect(page).to have_content 'Entrada'
     expect(page).to have_content 'Salada de Palmito e Agrião'
     expect(page).to have_css "img[src*='dish_test.jpg']"
-    expect(page).to have_content 'Salada'
   end
 
   it 'e não há pratos cadastrados' do

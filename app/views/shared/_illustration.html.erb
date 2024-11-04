@@ -1,4 +1,4 @@
-  <% if item.illustration.attached? %>
+<% if item.illustration.attached? %>
   <%= image_tag(item.illustration, size: '250x250') %>
 <% else %>
   <%= image_tag('item_placeholder', size: '250x250') %>

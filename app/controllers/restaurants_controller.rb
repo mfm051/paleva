@@ -1,6 +1,8 @@
 class RestaurantsController < ApplicationController
   before_action :authenticate_owner!
-  before_action :get_restaurant, only: [:show]
+  before_action :get_restaurant, only: [:overview, :show]
+
+  def overview; end
 
   def show
     @schedules = @restaurant.schedules.where(active: true)
