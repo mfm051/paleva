@@ -12,10 +12,13 @@ Rails.application.routes.draw do
   get '/search', to: "restaurants#search"
 
   resources :dishes, only: [:show, :new, :create, :edit, :update, :destroy] do
-    put 'deactivate', on: :member
-    put 'activate', on: :member
+    patch 'deactivate', on: :member
+    patch 'activate', on: :member
   end
-  resources :drinks, only: [:show, :new, :create, :edit, :update, :destroy]
+  resources :drinks, only: [:show, :new, :create, :edit, :update, :destroy] do
+    patch 'deactivate', on: :member
+    patch 'activate', on: :member
+  end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

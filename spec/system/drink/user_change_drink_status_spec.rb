@@ -1,16 +1,17 @@
 require 'rails_helper'
 
-describe 'Dono muda status de prato' do
+describe 'Dono muda status de bebida' do
   it 'a partir da tela de detalhes' do
     owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
                               password: '123456789012')
     restaurant = owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',
                             cnpj: '25401196000157', full_address: 'Rua das Flores, 10', phone: '1525017617',
                             email: 'afigueira@email.com')
-    dish = restaurant.dishes.create!(name: 'Provoleta de Cabra grelhada', description: 'Entrada', calories: 400)
+    drink = restaurant.drinks.create!(name: 'Coca-cola', alcoholic: false, description: 'Só uma Coca-cola', calories: 85,
+                                      status: 'active')
 
     login_as owner
-    visit dish_path(dish)
+    visit drink_path(drink)
     click_on 'Desativar'
 
     expect(page).to have_content 'Status: Inativo'
@@ -23,11 +24,11 @@ describe 'Dono muda status de prato' do
     restaurant = owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',
                             cnpj: '25401196000157', full_address: 'Rua das Flores, 10', phone: '1525017617',
                             email: 'afigueira@email.com')
-    dish = restaurant.dishes.create!(name: 'Provoleta de Cabra grelhada', description: 'Entrada', calories: 400,
-                                     status: 'inactive')
+    drink = restaurant.drinks.create!(name: 'Coca-cola', alcoholic: false, description: 'Só uma Coca-cola', calories: 85,
+                                      status: 'inactive')
 
     login_as owner
-    visit dish_path(dish)
+    visit drink_path(drink)
     click_on 'Ativar'
 
     expect(page).to have_content 'Status: Ativo'

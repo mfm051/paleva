@@ -1,6 +1,6 @@
 class DrinksController < ApplicationController
   before_action :build_drink, only: [:new, :create]
-  before_action :get_drink_by_id, only: [:show, :edit, :update, :destroy]
+  before_action :get_drink_by_id, only: [:show, :edit, :update, :destroy, :deactivate, :activate]
 
   def show; end
 
@@ -31,6 +31,18 @@ class DrinksController < ApplicationController
   def destroy
     @drink.delete
     redirect_to root_path, notice: 'Bebida removida com sucesso'
+  end
+
+  def deactivate
+    @drink.inactive!
+
+    redirect_to @drink
+  end
+
+  def activate
+    @drink.active!
+
+    redirect_to @drink
   end
 
   private

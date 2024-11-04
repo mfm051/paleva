@@ -9,12 +9,12 @@
 
 <%= link_to 'Editar prato', edit_dish_path(@dish) %>
 
-<%= button_to 'Remover prato', @dish, method: :delete, form: { data: { turbo_confirm: 'Você tem certeza?' } } %>
-
 <% if @dish.active? %>
-  <%= button_to 'Desativar', deactivate_dish_path(@dish), method: :put %>
+  <%= button_to 'Desativar prato', deactivate_dish_path(@dish), method: :patch %>
 <% else %>
-  <%= button_to 'Ativar', activate_dish_path(@dish), method: :put %>
+  <%= button_to 'Ativar prato', activate_dish_path(@dish), method: :patch %>
 <% end %>
+
+<%= button_to 'Remover prato', @dish, method: :delete, form: { data: { turbo_confirm: 'Você tem certeza?' } } %>
 
 <%= link_to 'Voltar', root_path %>

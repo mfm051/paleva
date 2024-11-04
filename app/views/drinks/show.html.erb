@@ -1,4 +1,5 @@
 <h2><%= @drink.name %></h2>
+<p><%= Drink.human_attribute_name('Status') %>: <%= t @drink.status %></p>
 <%= render 'shared/illustration', item: @drink %>
 <p><%= @drink.description %></p>
 
@@ -7,5 +8,11 @@
 <p><%= @drink.alcoholic? ? 'Contém álcool' : 'Não contém álcool' %></p>
 
 <%= link_to 'Editar bebida', edit_drink_path(@drink) %>
+
+<% if @drink.active? %>
+  <%= button_to 'Desativar bebida', deactivate_drink_path(@drink), method: :patch %>
+<% else %>
+  <%= button_to 'Ativar bebida', activate_drink_path(@drink), method: :patch %>
+<% end %>
 
 <%= button_to 'Remover bebida', @drink, method: :delete, form: { data: { turbo_confirm: 'Você tem certeza?' } } %>

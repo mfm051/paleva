@@ -50,9 +50,11 @@ describe 'Usuário vê itens de seu restaurante na tela inicial' do
     restaurant = owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',
                             cnpj: '25401196000157', full_address: 'Rua das Flores, 10', phone: '1525017617',
                             email: 'afigueira@email.com')
-    restaurant.drinks.create!(name: 'Coca-cola', alcoholic: false, description: 'Só uma Coca-cola', calories: 85)
+    restaurant.drinks.create!(name: 'Coca-cola', alcoholic: false, description: 'Só uma Coca-cola', calories: 85,
+                              status: 'active')
     drink = restaurant.drinks.create!(name: 'Mistério', alcoholic: true, description: 'Vermouth Dourado infusionado'\
-                                      ' com grãos de café, Bacardi 8 anos, licor Grand Marnier e Bitter Aromatic.')
+                                      ' com grãos de café, Bacardi 8 anos, licor Grand Marnier e Bitter Aromatic.',
+                                      status: 'inactive')
 
     drink.illustration.attach(io: file_fixture('drink_test.jpg').open, filename: 'drink_test.jpg')
 
@@ -60,8 +62,8 @@ describe 'Usuário vê itens de seu restaurante na tela inicial' do
     visit root_path
 
     expect(page).to have_content 'Bebidas'
-    expect(page).to have_content 'Coca-cola'
-    expect(page).to have_content 'Mistério'
+    expect(page).to have_content 'Coca-cola (ativo)'
+    expect(page).to have_content 'Mistério (inativo)'
     expect(page).to have_css "img[src*='drink_test.jpg']"
   end
 
