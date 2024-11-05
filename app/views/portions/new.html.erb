@@ -1,5 +1,7 @@
 <h2>Nova porção para <%= @dish.name %></h2>
 
+<%= render 'shared/form_errors', object: @portion %>
+
 <%= form_with model: [@dish, @portion], id: 'portion_form' do |f| %>
   <div>
     <%= f.label :description %>
@@ -11,3 +13,5 @@
   </div>
   <%= f.submit 'Salvar', id: 'portion_send' %>
 <% end %>
+
+<%= link_to 'Voltar', dish_path(@dish) %>
