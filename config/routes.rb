@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get '/search', to: "restaurants#search"
 
   resources :dishes, only: [:show, :new, :create, :edit, :update, :destroy] do
+    resources :portions, only: [:new, :create]
     patch 'deactivate', on: :member
     patch 'activate', on: :member
   end

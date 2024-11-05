@@ -1,0 +1,13 @@
+<h2>Nova porção para <%= @dish.name %></h2>
+
+<%= form_with model: [@dish, @portion], id: 'portion_form' do |f| %>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+  <div>
+    <%= f.label :price %>
+    R$ <%= f.number_field :price, min: 0, step: 0.01 %>
+  </div>
+  <%= f.submit 'Salvar', id: 'portion_send' %>
+<% end %>
