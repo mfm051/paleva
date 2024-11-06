@@ -1,37 +1,36 @@
 require 'rails_helper'
 
-describe 'Dono edita porção de prato' do
+describe 'Dono edita porção de bebida' do
   it 'a partir da tela de detalhes' do
     owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
                               password: '123456789012')
     restaurant = owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',
                             cnpj: '25401196000157', full_address: 'Rua das Flores, 10', phone: '1525017617',
                             email: 'afigueira@email.com')
-    dish = restaurant.dishes.create!(name: 'Provoleta de Cabra grelhada', description: 'Entrada', calories: 400,
-                                    status: 'active')
-    dish.portions.create!(description: 'Porção pequena', price: 3000)
+    drink = restaurant.drinks.create!(name: 'Coca-cola', alcoholic: false, description: 'Só uma Coca-cola', calories: 85,
+                              status: 'active')
+    drink.portions.create!(description: 'Lata (350ml)', price: 800)
 
     login_as owner
-    visit dish_path(dish)
-    click_on 'Porção pequena'
-    fill_in 'Preço', with: '35.00'
+    visit drink_path(drink)
+    click_on 'Lata (350ml)'
+    fill_in 'Preço', with: '10.00'
     click_on 'Salvar'
 
-    expect(current_path).to eq dish_path(dish)
+    expect(current_path).to eq drink_path(drink)
     expect(page).to have_content 'Porção atualizada com sucesso'
-    expect(page).to have_content 'R$ 35,00'
-    expect(page).not_to have_content 'R$ 30,00'
+    expect(page).to have_content 'R$ 10,00'
   end
 
-  it 'e não vê opção de editar nome' do
+  it 'e não vê opção de mudar nome' do
     owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
                               password: '123456789012')
     restaurant = owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',
                             cnpj: '25401196000157', full_address: 'Rua das Flores, 10', phone: '1525017617',
                             email: 'afigueira@email.com')
-    dish = restaurant.dishes.create!(name: 'Provoleta de Cabra grelhada', description: 'Entrada', calories: 400,
-                                    status: 'active')
-    portion = dish.portions.create!(description: 'Porção pequena', price: 3000)
+    drink = restaurant.drinks.create!(name: 'Coca-cola', alcoholic: false, description: 'Só uma Coca-cola', calories: 85,
+                              status: 'active')
+    portion = drink.portions.create!(description: 'Lata (350ml)', price: 800)
 
     login_as owner
     visit edit_portion_path(portion)
@@ -45,34 +44,34 @@ describe 'Dono edita porção de prato' do
     restaurant = owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',
                             cnpj: '25401196000157', full_address: 'Rua das Flores, 10', phone: '1525017617',
                             email: 'afigueira@email.com')
-    dish = restaurant.dishes.create!(name: 'Provoleta de Cabra grelhada', description: 'Entrada', calories: 400,
-                                    status: 'active')
-    portion = dish.portions.create!(description: 'Porção pequena', price: 3000)
+    drink = restaurant.drinks.create!(name: 'Coca-cola', alcoholic: false, description: 'Só uma Coca-cola', calories: 85,
+                              status: 'active')
+    portion = drink.portions.create!(description: 'Lata (350ml)', price: 800)
 
     login_as owner
     visit edit_portion_path(portion)
-    fill_in 'Preço', with: 0
+    fill_in 'Preço', with: '-8,00'
     click_on 'Salvar'
 
     expect(page).to have_content 'Porção não atualizada'
     expect(page).to have_content 'Preço deve ser maior que 0'
-    expect(dish.portions.last.price).to eq 3000
+    expect(drink.portions.last.price).to eq 800
   end
 
-  it 'e volta à tela de prato' do
+  it 'e volta à tela da bebida' do
     owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
-    password: '123456789012')
+                              password: '123456789012')
     restaurant = owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',
-      cnpj: '25401196000157', full_address: 'Rua das Flores, 10', phone: '1525017617',
-      email: 'afigueira@email.com')
-    dish = restaurant.dishes.create!(name: 'Provoleta de Cabra grelhada', description: 'Entrada', calories: 400,
-              status: 'active')
-    portion = dish.portions.create!(description: 'Porção pequena', price: 3000)
+                            cnpj: '25401196000157', full_address: 'Rua das Flores, 10', phone: '1525017617',
+                            email: 'afigueira@email.com')
+    drink = restaurant.drinks.create!(name: 'Coca-cola', alcoholic: false, description: 'Só uma Coca-cola', calories: 85,
+                              status: 'active')
+    portion = drink.portions.create!(description: 'Lata (350ml)', price: 800)
 
     login_as owner
     visit edit_portion_path(portion)
     click_on 'Voltar'
 
-    expect(current_path).to eq dish_path(dish)
+    expect(current_path).to eq drink_path(drink)
   end
 end
