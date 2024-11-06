@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     patch 'activate', on: :member
   end
   resources :drinks, only: [:show, :new, :create, :edit, :update, :destroy] do
+    resources :portions, only: [:new, :create]
     patch 'deactivate', on: :member
     patch 'activate', on: :member
   end

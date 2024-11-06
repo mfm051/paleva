@@ -18,7 +18,7 @@ describe 'Dono adiciona porção a um prato' do
     click_on 'Salvar'
 
     expect(current_path).to eq dish_path(dish)
-    expect(page).to have_content 'Porção registrada com sucesso'
+    expect(page).to have_content 'Porção cadastrada com sucesso'
     expect(page).to have_content 'Porção pequena: R$ 30,00'
   end
 
@@ -37,7 +37,7 @@ describe 'Dono adiciona porção a um prato' do
     fill_in 'Preço', with: '-5'
     click_on 'Salvar'
 
-    expect(page).to have_content 'Porção não registrada'
+    expect(page).to have_content 'Porção não cadastrada'
     expect(page).to have_content 'Descrição não pode ficar em branco'
     expect(page).to have_content 'Preço deve ser maior que 0'
   end

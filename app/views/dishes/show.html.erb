@@ -21,8 +21,7 @@
 <% if @dish.portions.any? %>
   <dl>
     <% @dish.portions.each do |portion| %>
-      <dt><%= portion.description %>:</dt>
-      <dd><%= number_to_currency(portion.price / 100) %></dd>
+      <%= render portion %>
     <% end %>
   </dl>
 <% else %>

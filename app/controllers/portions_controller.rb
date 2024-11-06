@@ -1,18 +1,18 @@
 class PortionsController < ApplicationController
+  before_action :find_parent, only: [:new, :create]
+
   def new
-    @dish = Dish.find(params[:dish_id])
-    @portion = @dish.portions.build
+    @portion = @parent.portions.build
   end
 
   def create
-    @dish = Dish.find(params[:dish_id])
-    @portion = @dish.portions.build(portion_params)
+    @portion = @parent.portions.build(portion_params)
 
     if @portion.save
-      redirect_to @dish, notice: 'Porção registrada com sucesso'
+      redirect_to @parent, notice: 'Porção cadastrada com sucesso'
     else
-      flash.now[:alert] = 'Porção não registrada'
-      render :new
+      flash.now[:alert] = 'Porção não cadastrada'
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -23,5 +23,11 @@ class PortionsController < ApplicationController
     params_formatted[:price] = params_formatted[:price].to_i * 100
 
     params_formatted
+  end
+
+  def find_parent
+    return @parent = Dish.find(params[:dish_id]) if params[:dish_id]
+
+    @parent = Drink.find(params[:drink_id])
   end
 end

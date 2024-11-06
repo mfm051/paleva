@@ -16,3 +16,18 @@
 <% end %>
 
 <%= button_to 'Remover bebida', @drink, method: :delete, form: { data: { turbo_confirm: 'Você tem certeza?' } } %>
+
+<h3>Porções disponíveis</h3>
+<% if @drink.portions.any? %>
+  <dl>
+    <% @drink.portions.each do |portion| %>
+      <%= render portion %>
+    <% end %>
+  </dl>
+<% else %>
+  <p>Não há porções cadastradas</p>
+<% end %>
+
+<%= link_to 'Adicionar porção', new_drink_portion_path(@drink) %>
+
+<%= link_to 'Voltar', root_path %>
