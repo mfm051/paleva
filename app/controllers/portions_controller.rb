@@ -1,5 +1,6 @@
 class PortionsController < ApplicationController
-  before_action :find_parent, only: [:new, :create]
+  before_action :find_portion_parent, only: [:new, :create]
+  before_action :find_portion, only: [:edit, :update]
 
   def new
     @portion = @parent.portions.build
@@ -16,6 +17,17 @@ class PortionsController < ApplicationController
     end
   end
 
+  def edit; end
+
+  def update
+    if @portion.update(portion_params)
+      redirect_to @portion.portionable, notice: 'Porção atualizada com sucesso'
+    else
+      flash.now[:alert] = 'Porção não atualizada'
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def portion_params
@@ -25,9 +37,13 @@ class PortionsController < ApplicationController
     params_formatted
   end
 
-  def find_parent
+  def find_portion_parent
     return @parent = Dish.find(params[:dish_id]) if params[:dish_id]
 
     @parent = Drink.find(params[:drink_id])
+  end
+
+  def find_portion
+    @portion = Portion.find(params[:id])
   end
 end

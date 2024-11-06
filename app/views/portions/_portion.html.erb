@@ -1,4 +1,4 @@
 <section>
-  <dt><%= portion.description %>:</dt>
+  <dt><%= link_to portion.description, edit_portion_path(portion) %>:</dt>
   <dd><%= number_to_currency(portion.price / 100) %></dd>
 </section>

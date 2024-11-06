@@ -1,0 +1,14 @@
+<h2>Editar <%= @portion.description %></h2>
+
+<%= render 'shared/form_errors', object: @portion %>
+
+<%= form_with model: @portion do |f| %>
+  <div>
+    <%= f.label :price %>
+    R$ <%= f.number_field :price, min: 0, step: 0.01 %>
+  </div>
+
+  <%= f.submit 'Salvar' %>
+<% end %>
+
+<%= link_to 'Voltar', @portion.portionable %>

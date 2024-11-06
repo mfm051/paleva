@@ -11,7 +11,7 @@
     <%= f.label :price %>
     R$ <%= f.number_field :price, min: 0, step: 0.01 %>
   </div>
-  <%= f.submit 'Salvar', id: 'portion_send' %>
+  <%= f.submit 'Salvar' %>
 <% end %>
 
 <%= link_to 'Voltar', @parent %>
