@@ -4,7 +4,9 @@ class DishesController < ApplicationController
 
   def show; end
 
-  def new; end
+  def new
+    5.times { @dish.dish_tags.build }
+  end
 
   def create
     @dish.attributes = params_dish
@@ -56,5 +58,6 @@ class DishesController < ApplicationController
     @dish = Dish.find(params[:id])
   end
 
-  def params_dish = params.require(:dish).permit(:name, :description, :calories, :illustration)
+  def params_dish = params.require(:dish).permit(:name, :description, :calories, :illustration,
+                                                 dish_tags_attributes: [:description])
 end

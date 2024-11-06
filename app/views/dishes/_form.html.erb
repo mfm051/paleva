@@ -17,5 +17,15 @@
     <%= f.label :illustration %>
     <%= f.file_field :illustration, accept: 'image/*' %>
   </div>
+  <div>
+    <ul>
+      <p>Marcadores</p>
+      <%= f.fields_for :dish_tags do |tag_f| %>
+        <li>
+          <%= tag_f.text_field :description %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
   <%= f.submit 'Salvar' %>
 <% end %>
