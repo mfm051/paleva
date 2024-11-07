@@ -28,12 +28,14 @@
   <p>Não há porções cadastradas</p>
 <% end %>
 
-<h3>Marcadores:</h3>
-<ul>
-  <% @dish.dish_tags.each do |tag| %>
-    <li class="dish_tag"><%= tag.description %></li>
-  <% end %>
-</ul>
+<% if @dish.dish_tags.any? %>
+  <h3>Marcadores</h3>
+  <ul>
+    <% @dish.dish_tags.each do |tag| %>
+      <li class="dish_tag"><%= tag.description %></li>
+    <% end %>
+  </ul>
+<% end %>
 
 <%= link_to 'Adicionar porção', new_dish_portion_path(@dish) %>
 

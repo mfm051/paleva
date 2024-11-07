@@ -15,6 +15,9 @@ describe 'Usuário vê detalhes de um prato' do
     dish.portions.create!(description: 'Porção pequena', price: 3_000)
     dish.portions.create!(description: 'Porção jumbo', price: 5_000)
 
+    dish.dish_tags.create!(description: 'vegetariano')
+    dish.dish_tags.create!(description: 'derivado de leite')
+
     login_as owner
     visit root_path
     click_on 'Provoleta de Cabra grelhada'
@@ -27,6 +30,9 @@ describe 'Usuário vê detalhes de um prato' do
     expect(page).to have_content 'Porções disponíveis'
     expect(page).to have_content 'Porção pequena: R$ 30,00'
     expect(page).to have_content 'Porção jumbo: R$ 50,00'
+    expect(page).to have_content "Marcadores"
+    expect(page).to have_content "vegetariano"
+    expect(page).to have_content "derivado de leite"
   end
 
   it 'e o prato não tem calorias registradas' do
@@ -70,6 +76,21 @@ describe 'Usuário vê detalhes de um prato' do
     visit dish_path(dish)
 
     expect(page).to have_content 'Não há porções cadastradas'
+  end
+
+  it 'e não há marcadores cadastrados' do
+    owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
+                              password: '123456789012')
+    restaurant = owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',
+                            cnpj: '25401196000157', full_address: 'Rua das Flores, 10', phone: '1525017617',
+                            email: 'afigueira@email.com')
+    dish = restaurant.dishes.create!(name: 'Provoleta de Cabra grelhada', description: 'Entrada', calories: 400,
+                                     status: 'active')
+
+    login_as owner
+    visit dish_path(dish)
+
+    expect(page).not_to have_content 'Marcadores'
   end
 
   it 'e volta à tela inicial' do

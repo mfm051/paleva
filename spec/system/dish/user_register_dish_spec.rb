@@ -29,7 +29,7 @@ describe 'Usuário registra um prato para seu estabelecimento' do
     expect(page).to have_content 'Entrada'
     expect(page).to have_content 'Valor energético: 100 kcal'
     expect(page).to have_css "img[src*='dish_test.jpg']"
-    expect(page).to have_content 'Marcadores:'
+    expect(page).to have_content 'Marcadores'
     expect(page).to have_content 'derivado de leite'
     expect(page).to have_content 'vegetariano'
     page.assert_selector('li.dish_tag', count: 2)
@@ -55,7 +55,7 @@ describe 'Usuário registra um prato para seu estabelecimento' do
     end
     click_on 'Salvar'
 
-    expect(page).to have_content 'Marcadores:'
+    expect(page).to have_content 'Marcadores'
     expect(page).to have_content 'salgado'
     page.assert_selector('li.dish_tag', text: 'salgado', count: 1)
   end
