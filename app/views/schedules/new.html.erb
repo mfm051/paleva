@@ -2,7 +2,7 @@
 
 <%= render 'shared/form_errors', object: @schedule %>
 
-<%= form_with model: [@restaurant, @schedule] do |f| %>
+<%= form_with model: @schedule do |f| %>
   <div>
     <%= f.label :weekday %>
     <%= f.select :weekday, Schedule.weekdays.map { |k,_v| [t(k), k] } %>

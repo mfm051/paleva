@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Dono registra horários de funcionamento do restaurante' do
+describe 'Dono registra horário de funcionamento do restaurante' do
   it 'a partir da tela de detalhes do restaurante' do
     owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
                               password: '123456789012')
@@ -29,7 +29,7 @@ describe 'Dono registra horários de funcionamento do restaurante' do
                             email: 'afigueira@email.com')
 
     login_as owner
-    visit new_restaurant_schedule_path
+    visit new_schedule_path
     select 'Segunda-feira', from: 'Dia da semana'
     fill_in 'Horário de abertura', with: '17:00'
     fill_in 'Horário de fechamento', with: '08:00'
@@ -47,7 +47,7 @@ describe 'Dono registra horários de funcionamento do restaurante' do
                             email: 'afigueira@email.com')
 
     login_as owner
-    visit new_restaurant_schedule_path
+    visit new_schedule_path
     click_on 'Voltar'
 
     expect(current_path).to eq restaurant_path

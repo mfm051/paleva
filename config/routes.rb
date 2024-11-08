@@ -3,13 +3,13 @@ Rails.application.routes.draw do
 
   devise_for :owners, controllers: {registrations: "registrations"}
 
-  resource :restaurant, only: [:show, :new, :create] do
-    resources :schedules, only: [:new, :create]
-    resource :schedules, only: [:edit, :update]
-  end
+  resource :restaurant, only: [:show, :new, :create]
   resolve('Restaurant') { [:restaurant] }
 
   get '/search', to: "restaurants#search"
+
+  resources :schedules, only: [:new, :create, :edit]
+  resource :schedules, only: [:edit, :update]
 
   resources :dishes, only: [:show, :new, :create, :edit, :update, :destroy] do
     resources :portions, only: [:new, :create]
