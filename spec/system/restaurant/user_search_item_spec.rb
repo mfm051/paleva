@@ -58,6 +58,30 @@ describe 'Usuário busca um item do restaurante' do
     expect(page).to have_content 'Coca-cola'
   end
 
+  it 'e vê somente dados de seu próprio restaurante' do
+    other_owner = Owner.create!(cpf: '58536236051', name: 'Érico', surname: 'Jacan', email: 'erico@email.com',
+                                password: '123456789012')
+    other_restaurant = other_owner.create_restaurant!(brand_name: 'Pão-de-ló na Cozinha', corporate_name: 'Pão-de-Ló LTDA',
+                                                            cnpj: '65309109000150', full_address: 'Rua Francesa, 15',
+                                                            phone: '2736910853', email: 'paodelo@email.com')
+    other_restaurant.dishes.create!(name: 'Torteletes de limão', description: 'Sobremesa azedinha')
+
+    owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
+                          password: '123456789012')
+    restaurant = owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',
+                                          cnpj: '25401196000157', full_address: 'Rua das Flores, 10', phone: '1525017617',
+                                          email: 'afigueira@email.com')
+    restaurant.drinks.create!(name: 'Suco de limão', alcoholic: false, description: 'Geladinho')
+
+    login_as owner
+    visit root_path
+    fill_in 'Busca', with: 'limão'
+    click_on 'Buscar'
+
+    expect(page).to have_content 'Suco de limão'
+    expect(page).not_to have_content 'Torteletes de limão'
+  end
+
   it 'e não há itens para busca' do
     owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
                               password: '123456789012')
