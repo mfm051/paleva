@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Usuário vê detalhes de seu restaurante' do
-  it 'a partir da tela inicial' do
+  it 'a partir de menu na tela inicial' do
     owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
                               password: '123456789012')
     restaurant = owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',
@@ -46,7 +46,27 @@ describe 'Usuário vê detalhes de seu restaurante' do
     expect(page).not_to have_content 'Segunda-feira: das 08:00 às 17:00'
   end
 
-  it 'E volta à tela inicial' do
+  it 'e não vê dados de outro restaurante' do
+    other_owner = Owner.create!(cpf: '58536236051', name: 'Érico', surname: 'Jacan', email: 'erico@email.com',
+                                password: '123456789012')
+    other_restaurant = other_owner.create_restaurant!(brand_name: 'Pão-de-ló na Cozinha', corporate_name: 'Pão-de-Ló LTDA',
+                                                            cnpj: '65309109000150', full_address: 'Rua Francesa, 15',
+                                                            phone: '2736910853', email: 'paodelo@email.com')
+
+    owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
+                          password: '123456789012')
+    owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',
+                                          cnpj: '25401196000157', full_address: 'Rua das Flores, 10', phone: '1525017617',
+                                          email: 'afigueira@email.com')
+
+    login_as owner
+    visit restaurant_path
+
+    expect(page).not_to have_content other_restaurant.brand_name
+    expect(page).not_to have_content other_restaurant.email
+  end
+
+  it 'e volta à tela inicial' do
     owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
                               password: '123456789012')
     owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',

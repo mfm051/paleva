@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'Usuário vê itens de seu restaurante na tela inicial' do
-  it 'somente se já o tiver cadastrado' do
+describe 'Usuário vê tela inicial' do
+  it 'somente se já tiver restaurante cadastrado' do
     owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
                               password: '123456789012')
 
@@ -11,7 +11,7 @@ describe 'Usuário vê itens de seu restaurante na tela inicial' do
     expect(page).to have_content 'Para continuar, registre seu estabelecimento'
   end
 
-  it 'e vê pratos cadastrados' do
+  it 'e vê pratos do restaurante' do
     owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
                               password: '123456789012')
     restaurant = owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',
@@ -44,7 +44,7 @@ describe 'Usuário vê itens de seu restaurante na tela inicial' do
     expect(page).to have_content 'Ainda não há pratos cadastrados'
   end
 
-  it 'e vê bebidas cadastradas' do
+  it 'e vê bebidas do restaurante' do
     owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
                               password: '123456789012')
     restaurant = owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',
