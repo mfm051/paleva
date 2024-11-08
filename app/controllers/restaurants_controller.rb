@@ -1,6 +1,7 @@
 class RestaurantsController < ApplicationController
   before_action :authenticate_owner!
   before_action :get_restaurant, only: [:overview, :show]
+  before_action :verify_owner_has_restaurant, only: [:new, :create]
 
   def overview; end
 
@@ -30,5 +31,13 @@ class RestaurantsController < ApplicationController
 
     @dishes = @restaurant.dishes.where("name LIKE :query OR description LIKE :query", query: "%#{@query}%")
     @drinks = @restaurant.drinks.where("name LIKE :query OR description LIKE :query", query: "%#{@query}%")
+  end
+
+  private
+
+  def verify_owner_has_restaurant
+    if current_owner.restaurant
+      return redirect_to current_owner.restaurant
+    end
   end
 end

@@ -33,4 +33,17 @@ describe 'Usuário registra seu estabelecimento' do
     expect(page).to have_content 'Restaurante não cadastrado'
     expect(page).to have_content 'Nome fantasia não pode ficar em branco'
   end
+
+  it 'se ainda não tiver um cadastrado' do
+    owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
+                              password: '123456789012')
+    owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',
+                            cnpj: '25401196000157', full_address: 'Rua das Flores, 10', phone: '1525017617',
+                            email: 'afigueira@email.com')
+
+    login_as owner
+    visit new_restaurant_path
+
+    expect(current_path).to eq restaurant_path
+  end
 end
