@@ -1,7 +1,7 @@
 class DrinksController < ApplicationController
   before_action :build_drink, only: [:new, :create]
   before_action :get_drink_by_id, only: [:show, :edit, :update, :destroy, :deactivate, :activate]
-  before_action :authenticate_restaurant!, only: [:edit, :update]
+  before_action :authenticate_restaurant!, only: [:edit, :update, :deactivate, :activate]
 
   def show; end
 
