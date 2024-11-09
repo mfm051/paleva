@@ -1,5 +1,4 @@
 class SchedulesController < ApplicationController
-  before_action :get_restaurant, only: [:new, :create, :edit, :update]
 
   def new
     @schedule = @restaurant.schedules.build

@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   before_action :authenticate_owner!
+  before_action :get_restaurant_or_redirect!, if: :current_owner, unless: :devise_controller?
 
   protected
 
@@ -12,7 +13,7 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:cpf, :name, :surname])
   end
 
-  def get_restaurant
+  def get_restaurant_or_redirect!
     if current_owner.restaurant.present?
       @restaurant = current_owner.restaurant
     else

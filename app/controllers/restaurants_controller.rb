@@ -1,6 +1,6 @@
 class RestaurantsController < ApplicationController
   before_action :authenticate_owner!
-  before_action :get_restaurant, only: [:overview, :show, :search]
+  skip_before_action :get_restaurant_or_redirect!, only: [:new, :create]
   before_action :verify_owner_has_restaurant, only: [:new, :create]
 
   def overview; end

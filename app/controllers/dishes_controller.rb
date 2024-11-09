@@ -1,6 +1,7 @@
 class DishesController < ApplicationController
   before_action :build_dish, only: [:new, :create]
   before_action :get_dish_by_id, only: [:show, :edit, :update, :destroy, :deactivate, :activate]
+  before_action :authenticate_restaurant!, only: [:edit, :update]
 
   def show; end
 
@@ -60,4 +61,10 @@ class DishesController < ApplicationController
 
   def params_dish = params.require(:dish).permit(:name, :description, :calories, :illustration,
                                                   dish_tags_attributes: [:description])
+
+  def authenticate_restaurant!
+    unless @dish.restaurant == @restaurant
+      redirect_to @restaurant
+    end
+  end
 end

@@ -29,6 +29,26 @@ describe 'Usuário edita bebida' do
     expect(page).to have_content 'Contém álcool'
   end
 
+  it 'do seu próprio restaurante' do
+    owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
+                          password: '123456789012')
+    owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',
+                            cnpj: '25401196000157', full_address: 'Rua das Flores, 10', phone: '1525017617',
+                            email: 'afigueira@email.com')
+
+    other_owner = Owner.create!(cpf: '58536236051', name: 'Érico', surname: 'Jacan', email: 'erico@email.com',
+                            password: '123456789012')
+    other_restaurant = other_owner.create_restaurant!(brand_name: 'Pão-de-ló na Cozinha', corporate_name: 'Pão-de-Ló LTDA',
+                                                        cnpj: '65309109000150', full_address: 'Rua Francesa, 15',
+                                                        phone: '2736910853', email: 'paodelo@email.com')
+    other_drink = other_restaurant.drinks.create!(name: 'Suco de limão', alcoholic: false, description: 'Geladinho')
+
+    login_as owner
+    visit edit_drink_path(other_drink)
+
+    expect(current_path).to eq restaurant_path
+  end
+
   it 'e remove campo obrigatório' do
     owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
                               password: '123456789012')

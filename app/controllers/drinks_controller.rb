@@ -1,6 +1,7 @@
 class DrinksController < ApplicationController
   before_action :build_drink, only: [:new, :create]
   before_action :get_drink_by_id, only: [:show, :edit, :update, :destroy, :deactivate, :activate]
+  before_action :authenticate_restaurant!, only: [:edit, :update]
 
   def show; end
 
@@ -47,14 +48,19 @@ class DrinksController < ApplicationController
 
   private
 
+  def params_drink = params.require(:drink).permit(:name, :description, :calories, :alcoholic, :illustration)
+
   def build_drink
-    restaurant = current_owner.restaurant
-    @drink = restaurant.drinks.build
+    @drink = @restaurant.drinks.build
   end
 
   def get_drink_by_id
-    @drink = Drink.find(params[:id])
+    @drink = Drink.find_by(id: params[:id])
   end
 
-  def params_drink = params.require(:drink).permit(:name, :description, :calories, :alcoholic, :illustration)
+  def authenticate_restaurant!
+    unless @drink.restaurant == @restaurant
+      redirect_to @restaurant
+    end
+  end
 end
