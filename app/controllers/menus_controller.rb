@@ -1,14 +1,13 @@
 class MenusController < ApplicationController
   before_action :build_menu, only: [:new, :create]
-  before_action :build_items, only: [:new, :create]
+  before_action :find_menu_by_id, only: [:show, :edit, :update]
+  before_action :build_items, only: [:new, :edit]
 
   def index
     @menus = @restaurant.menus
   end
 
-  def show
-    @menu = Menu.find(params[:id])
-  end
+  def show; end
 
   def new; end
 
@@ -24,12 +23,30 @@ class MenusController < ApplicationController
     end
   end
 
+  def edit; end
+
+  def update
+    @menu.attributes = menu_params
+
+    if @menu.save
+      redirect_to @menu, notice: 'Cardápio atualizado com sucesso'
+    else
+      flash.now[:alert] = 'Cardápio não atualizado'
+      build_items
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def menu_params = params.require(:menu).permit(:name, dish_ids: [], drink_ids: [])
 
   def build_menu
     @menu = @restaurant.menus.build
+  end
+
+  def find_menu_by_id
+    @menu = Menu.find(params[:id])
   end
 
   def build_items

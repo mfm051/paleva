@@ -1,3 +1,7 @@
+<% @menus.each do |menu| %>
+  <%= link_to menu.name, menu %>
+<% end %>
+
 <% if @restaurant.items.any? %>
   <%= link_to 'Novo cardápio', new_menu_path %>
 <% else %>
