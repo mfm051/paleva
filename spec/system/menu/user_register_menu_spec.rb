@@ -16,21 +16,30 @@ describe 'Dono cadastra menu para restaurante' do
     restaurant.dishes.create!(name: 'Farofa à Moda Rubista', description: 'Acompanhamento')
 
     restaurant.drinks.create!(name: 'Suco de Uva', description: 'Integral', alcoholic: false)
-    restaurant.drinks.create!(name: 'Soda Italiana', description: 'Xarope de maçã verde e água com gás', alcoholic: true)
+    restaurant.drinks.create!(name: 'Soda Italiana', description: 'Xarope de maçã verde e água com gás', alcoholic: false)
 
     login_as owner
     visit restaurant_path
     click_on 'Cardápios'
     click_on 'Novo cardápio'
     fill_in 'Nome', with: 'Executivo'
-    within 'Pratos' do
+    within '#dishes' do
       check 'Salada Rubista'
       check 'Frango Caipira da Fazenda Rubista'
       check 'Farofa à Moda Rubista'
     end
-    within 'Bebidas' do
+    within '#drinks' do
       check 'Soda Italiana'
     end
     click_on 'Salvar'
+    created_menu = restaurant.menus.last
+
+    expect(current_path).to eq menu_path(created_menu)
+    expect(page).to have_content 'Cardápio registrado com sucesso'
+    expect(page).to have_content 'Executivo'
+    expect(page).to have_content 'Salada Rubista'
+    expect(page).to have_content 'Soda Italiana'
+    expect(page).not_to have_content 'Provoleta de Cabra Grelhada'
+    expect(page).not_to have_content 'Suco de Uva'
   end
 end

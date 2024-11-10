@@ -1,0 +1,15 @@
+<h2><%= @menu.name %></h2>
+
+<h3><%= Menu.human_attribute_name('dishes_ids') %></h3>
+<ul>
+  <% @menu.dishes.each do |dish| %>
+    <li><%= dish.name %></li>
+  <% end %>
+</ul>
+
+<h3><%= Menu.human_attribute_name('drinks_ids') %></h3>
+<ul>
+  <% @menu.drinks.each do |drink| %>
+    <li><%= drink.name %></li>
+  <% end %>
+</ul>

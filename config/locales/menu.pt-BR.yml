@@ -7,3 +7,5 @@ pt-BR:
     attributes:
       menu:
         name: "Nome"
+        dish_ids: "Pratos"
+        drink_ids: "Bebidas"
