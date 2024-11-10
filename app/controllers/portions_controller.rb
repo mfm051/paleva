@@ -1,6 +1,7 @@
 class PortionsController < ApplicationController
-  before_action :find_portion_parent, only: [:new, :create]
+  before_action :find_portion_parent, only: [:new, :create, :edit, :update]
   before_action :find_portion, only: [:edit, :update]
+  before_action :authenticate_restaurant!, only: [:new, :create, :edit, :update]
 
   def new
     @portion = @parent.portions.build
@@ -45,5 +46,11 @@ class PortionsController < ApplicationController
 
   def find_portion
     @portion = Portion.find(params[:id])
+  end
+
+  def authenticate_restaurant!
+    unless @parent.restaurant == @restaurant
+      redirect_to @restaurant
+    end
   end
 end

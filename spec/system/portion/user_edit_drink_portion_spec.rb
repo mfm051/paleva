@@ -22,6 +22,28 @@ describe 'Dono edita porção de bebida' do
     expect(page).to have_content 'R$ 10,00'
   end
 
+  it 'se for dono do prato' do
+    other_owner = Owner.create!(cpf: '58536236051', name: 'Érico', surname: 'Jacan', email: 'erico@email.com',
+                                password: '123456789012')
+    other_restaurant = other_owner.create_restaurant!(brand_name: 'Pão-de-ló na Cozinha', corporate_name: 'Pão-de-Ló LTDA',
+                                                      cnpj: '65309109000150', full_address: 'Rua Francesa, 15',
+                                                      phone: '2736910853', email: 'paodelo@email.com')
+    other_drink = other_restaurant.drinks.create!(name: 'Suco de uva', description: 'geladinho', alcoholic: false)
+    other_portion = other_drink.portions.create!(description: '500 mL', price: 2000)
+
+    owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
+                          password: '123456789012')
+    owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',
+                                          cnpj: '25401196000157', full_address: 'Rua das Flores, 10', phone: '1525017617',
+                                          email: 'afigueira@email.com')
+
+    login_as owner
+    visit edit_drink_portion_path(other_drink, other_portion)
+
+    expect(page).not_to have_field 'Preço'
+    expect(page).not_to have_button 'Enviar'
+  end
+
   it 'e não vê opção de mudar nome' do
     owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
                               password: '123456789012')
@@ -33,7 +55,7 @@ describe 'Dono edita porção de bebida' do
     portion = drink.portions.create!(description: 'Lata (350ml)', price: 800)
 
     login_as owner
-    visit edit_portion_path(portion)
+    visit edit_drink_portion_path(drink, portion)
 
     expect(page).not_to have_field 'Descrição'
   end
@@ -49,7 +71,7 @@ describe 'Dono edita porção de bebida' do
     portion = drink.portions.create!(description: 'Lata (350ml)', price: 800)
 
     login_as owner
-    visit edit_portion_path(portion)
+    visit edit_drink_portion_path(drink, portion)
     fill_in 'Preço', with: '-8,00'
     click_on 'Salvar'
 
@@ -69,7 +91,7 @@ describe 'Dono edita porção de bebida' do
     portion = drink.portions.create!(description: 'Lata (350ml)', price: 800)
 
     login_as owner
-    visit edit_portion_path(portion)
+    visit edit_drink_portion_path(drink, portion)
     click_on 'Voltar'
 
     expect(current_path).to eq drink_path(drink)

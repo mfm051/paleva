@@ -21,7 +21,9 @@
 <% if @drink.portions.any? %>
   <dl>
     <% @drink.portions.each do |portion| %>
-      <%= render portion %>
+      <%= link_to edit_drink_portion_path(@drink, portion) do %>
+        <%= render portion %>
+      <% end %>
     <% end %>
   </dl>
 <% else %>

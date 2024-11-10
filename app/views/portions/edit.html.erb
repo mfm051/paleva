@@ -2,7 +2,7 @@
 
 <%= render 'shared/form_errors', object: @portion %>
 
-<%= form_with model: @portion do |f| %>
+<%= form_with model: [@parent, @portion] do |f| %>
   <div>
     <%= f.label :price %>
     R$ <%= f.number_field :price, min: 0, step: 0.01 %>
