@@ -1,3 +1,5 @@
+<%= render 'shared/form_errors', object: @menu %>
+
 <%= form_with model: @menu do |f| %>
   <div>
     <%= f.label :name %>
@@ -5,11 +7,13 @@
   </div>
   <div id="dishes">
     <%= f.label :dish_ids %>
-    <%= f.collection_check_boxes :dish_ids, Dish.all, :id, :name %>
+    <%= f.collection_check_boxes :dish_ids, @restaurant_dishes, :id, :name %>
   </div>
   <div id="drinks">
     <%= f.label :drink_ids %>
-    <%= f.collection_check_boxes :drink_ids, Drink.all, :id, :name %>
+    <%= f.collection_check_boxes :drink_ids, @restaurant_drinks, :id, :name %>
   </div>
   <%= f.submit 'Salvar' %>
 <% end %>
+
+<%= link_to 'Voltar', menus_path %>

@@ -18,6 +18,8 @@ class Restaurant < ApplicationRecord
 
   validate :cnpj_must_be_valid
 
+  def items = self.dishes | self.drinks
+
   private
 
   def generate_code

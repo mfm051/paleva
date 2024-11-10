@@ -1,1 +1,11 @@
-<%= link_to 'Novo cardápio', new_menu_path %>
+<% if @restaurant.items.any? %>
+  <%= link_to 'Novo cardápio', new_menu_path %>
+<% else %>
+  <p>Sem pratos ou bebidas para montar cardápio</p>
+  <div>
+    <%= link_to 'Novo prato', new_dish_path %>
+  </div>
+  <div>
+    <%= link_to 'Nova bebida', new_drink_path %>
+  </div>
+<% end %>

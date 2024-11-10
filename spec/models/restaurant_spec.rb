@@ -194,4 +194,81 @@ RSpec.describe Restaurant, type: :model do
       end
     end
   end
+
+  describe '#items' do
+    context 'quando há bebidas e pratos cadastrados no restaurante' do
+      it 'retorna ambos' do
+        owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
+                              password: '123456789012')
+        restaurant = Restaurant.create!(corporate_name: 'Figueira Rubista LTDA', cnpj: '25401196000157', owner: owner,
+                            brand_name: 'A Figueira Rubista', full_address: 'Rua das Flores, 10',
+                            phone: '1525017617', email: 'afigueira@email.com')
+
+        drink1 = restaurant.drinks.create!(name: 'Suco de uva', description: 'Suco da fruta integral', alcoholic:false)
+        drink2 = restaurant.drinks.create!(name: 'Vinho tinto', description: 'Tradicional', alcoholic: true)
+
+        dish1 = restaurant.dishes.create!(name: 'Costelinha de porco', description: 'Entrada')
+        dish2 = restaurant.dishes.create!(name: 'Dadinho de Tapioca', description: 'Petisco')
+
+        expect(restaurant.items).to contain_exactly dish1, dish2, drink1, drink2
+      end
+    end
+
+    context 'quando há apenas bebidas cadastradas no restaurante' do
+      it 'retorna apenas as bebidas' do
+        owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
+                              password: '123456789012')
+        restaurant = Restaurant.create!(corporate_name: 'Figueira Rubista LTDA', cnpj: '25401196000157', owner: owner,
+                            brand_name: 'A Figueira Rubista', full_address: 'Rua das Flores, 10',
+                            phone: '1525017617', email: 'afigueira@email.com')
+
+        drink = restaurant.drinks.create!(name: 'Suco de uva', description: 'Suco da fruta integral', alcoholic:false)
+
+        expect(restaurant.items).to contain_exactly drink
+      end
+    end
+
+    context 'quando há apenas pratos cadastrados no restaurante' do
+      it 'retorna apenas os pratos' do
+        owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
+                              password: '123456789012')
+        restaurant = Restaurant.create!(corporate_name: 'Figueira Rubista LTDA', cnpj: '25401196000157', owner: owner,
+                            brand_name: 'A Figueira Rubista', full_address: 'Rua das Flores, 10',
+                            phone: '1525017617', email: 'afigueira@email.com')
+
+        dish = restaurant.dishes.create!(name: 'Costelinha de porco', description: 'Entrada')
+
+        expect(restaurant.items).to contain_exactly dish
+      end
+    end
+
+    context 'quando não há bebidas nem pratos cadastrados' do
+      it 'retorna lista vazia' do
+        owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
+                              password: '123456789012')
+        restaurant = Restaurant.create!(corporate_name: 'Figueira Rubista LTDA', cnpj: '25401196000157', owner: owner,
+                            brand_name: 'A Figueira Rubista', full_address: 'Rua das Flores, 10',
+                            phone: '1525017617', email: 'afigueira@email.com')
+
+        expect(restaurant.items).to be_empty
+      end
+    end
+
+    it 'retorna itens do próprio restaurante' do
+      other_owner = Owner.create!(cpf: '58536236051', name: 'Érico', surname: 'Jacan', email: 'erico@email.com',
+                                password: '123456789012')
+      other_restaurant = other_owner.create_restaurant!(brand_name: 'Pão-de-ló na Cozinha', corporate_name: 'Pão-de-Ló LTDA',
+                                                            cnpj: '65309109000150', full_address: 'Rua Francesa, 15',
+                                                            phone: '2736910853', email: 'paodelo@email.com')
+      other_restaurant.dishes.create!(name: 'Torteletes de limão', description: 'Sobremesa azedinha')
+
+      owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
+                              password: '123456789012')
+      restaurant = Restaurant.create!(corporate_name: 'Figueira Rubista LTDA', cnpj: '25401196000157', owner: owner,
+                            brand_name: 'A Figueira Rubista', full_address: 'Rua das Flores, 10',
+                            phone: '1525017617', email: 'afigueira@email.com')
+
+      expect(restaurant.items).to be_empty
+    end
+  end
 end
