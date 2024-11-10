@@ -4,6 +4,7 @@ class Restaurant < ApplicationRecord
   has_many :drinks, dependent: :destroy
   has_many :schedules, dependent: :destroy
   accepts_nested_attributes_for :schedules
+  has_many :menus
 
   before_validation :generate_code
 
