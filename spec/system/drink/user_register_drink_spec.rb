@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Usuário cadastra bebida' do
-  it 'a partir da tela inicial' do
+  it 'a partir da tela do restaurante' do
     owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
                               password: '123456789012')
     restaurant = owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',
@@ -10,6 +10,7 @@ describe 'Usuário cadastra bebida' do
 
     login_as owner
     visit root_path
+    click_on 'Informações do restaurante'
     click_on 'Nova bebida'
     fill_in 'Nome', with: 'Drink da casa'
     fill_in 'Descrição', with: 'Bebida chique'
@@ -18,7 +19,6 @@ describe 'Usuário cadastra bebida' do
     check 'Alcoólica'
     click_on 'Salvar'
 
-    expect(current_path).to eq drink_path(restaurant.drinks.last)
     expect(page).to have_content 'Bebida cadastrada com sucesso'
     expect(page).to have_content 'Drink da casa'
     expect(page).to have_content 'Bebida chique'

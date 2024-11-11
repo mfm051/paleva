@@ -1,14 +1,13 @@
 require 'rails_helper'
 
 describe 'Usuário vê detalhes de um prato' do
-  it 'a partir da tela inicial' do
+  it 'a partir de cardápio que o contenha' do
     owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
                               password: '123456789012')
     restaurant = owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',
                             cnpj: '25401196000157', full_address: 'Rua das Flores, 10', phone: '1525017617',
                             email: 'afigueira@email.com')
-    dish = restaurant.dishes.create!(name: 'Provoleta de Cabra grelhada', description: 'Entrada', calories: 400,
-                                     status: 'active')
+    dish = restaurant.dishes.create!(name: 'Provoleta de Cabra grelhada', description: 'Entrada', calories: 400)
 
     dish.illustration.attach(io: file_fixture('drink_test.jpg').open, filename: 'dish_test.jpg')
 
@@ -18,10 +17,14 @@ describe 'Usuário vê detalhes de um prato' do
     dish.dish_tags.create!(description: 'vegetariano')
     dish.dish_tags.create!(description: 'derivado de leite')
 
+    restaurant.menus.create!(name: 'Almoço', dishes: [dish])
+
     login_as owner
     visit root_path
+    click_on 'Almoço'
     click_on 'Provoleta de Cabra grelhada'
 
+    expect(current_path).to eq dish_path(dish)
     expect(page).to have_content 'Provoleta de Cabra grelhada'
     expect(page).to have_content 'Status: Ativo'
     expect(page).to have_css "img[src*='dish_test.jpg']"

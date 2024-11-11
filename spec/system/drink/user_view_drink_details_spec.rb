@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Dono vê detalhes de bebida' do
-  it 'a partir da tela inicial' do
+  it 'a partir de menu que o contenha' do
     owner = Owner.create!(cpf: '34423090007', name: 'Paula', surname: 'Groselha', email: 'paula@email.com',
                               password: '123456789012')
     restaurant = owner.create_restaurant!(brand_name: 'A Figueira Rubista', corporate_name: 'Figueira Rubista LTDA',
@@ -12,8 +12,11 @@ describe 'Dono vê detalhes de bebida' do
     drink.portions.create!(description: 'Lata (350ml)', price: 800)
     drink.portions.create!(description: 'Garrafa (1 litro)', price: 1200 )
 
+    restaurant.menus.create!(name: 'Lanche', drinks: [drink])
+
     login_as owner
     visit root_path
+    click_on 'Lanche'
     click_on 'Coca-cola'
 
     expect(page).to have_content 'Coca-cola'

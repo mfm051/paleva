@@ -1,17 +1,25 @@
 <h2><%= @menu.name %></h2>
 
-<h3><%= Menu.human_attribute_name('dishes_ids') %></h3>
-<ul>
-  <% @menu.dishes.each do |dish| %>
-    <li><%= dish.name %></li>
-  <% end %>
-</ul>
+<h3><%= Menu.human_attribute_name('dishes') %></h3>
+<% if @dishes.any? %>
+  <ul>
+    <% @dishes.each do |dish| %>
+      <li><%= link_to dish.name, dish %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Não há pratos ativos para esse cardápio</p>
+<% end %>
 
-<h3><%= Menu.human_attribute_name('drinks_ids') %></h3>
-<ul>
-  <% @menu.drinks.each do |drink| %>
-    <li><%= drink.name %></li>
-  <% end %>
-</ul>
+<h3><%= Menu.human_attribute_name('drinks') %></h3>
+<% if @drinks.any? %>
+  <ul>
+    <% @drinks.each do |drink| %>
+      <li><%= link_to drink.name, drink %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Não há bebidas ativas para esse cardápio</p>
+<% end %>
 
 <%= link_to 'Editar', edit_menu_path(@menu) %>

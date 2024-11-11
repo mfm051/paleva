@@ -7,7 +7,10 @@ class MenusController < ApplicationController
     @menus = @restaurant.menus
   end
 
-  def show; end
+  def show
+    @drinks = @menu.drinks.active
+    @dishes = @menu.dishes.active
+  end
 
   def new; end
 
