@@ -15,8 +15,6 @@
   <%= button_to 'Ativar bebida', activate_drink_path(@drink), method: :patch %>
 <% end %>
 
-<%= button_to 'Remover bebida', @drink, method: :delete, form: { data: { turbo_confirm: 'Você tem certeza?' } } %>
-
 <h3>Porções disponíveis</h3>
 <% if @drink.portions.any? %>
   <dl>

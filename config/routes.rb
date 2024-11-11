@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'restaurants#overview'
+  root 'menus#index'
 
   devise_for :owners, controllers: {registrations: "registrations"}
 
@@ -11,13 +11,13 @@ Rails.application.routes.draw do
   resources :schedules, only: [:new, :create, :edit]
   resource :schedules, only: [:edit, :update]
 
-  resources :dishes, only: [:show, :new, :create, :edit, :update, :destroy] do
+  resources :dishes, only: [:show, :new, :create, :edit, :update] do
     resources :portions, only: [:new, :create, :edit, :update]
     patch 'deactivate', on: :member
     patch 'activate', on: :member
   end
 
-  resources :drinks, only: [:show, :new, :create, :edit, :update, :destroy] do
+  resources :drinks, only: [:show, :new, :create, :edit, :update] do
     resources :portions, only: [:new, :create, :edit, :update]
     patch 'deactivate', on: :member
     patch 'activate', on: :member

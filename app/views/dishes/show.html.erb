@@ -15,8 +15,6 @@
   <%= button_to 'Ativar prato', activate_dish_path(@dish), method: :patch %>
 <% end %>
 
-<%= button_to 'Remover prato', @dish, method: :delete, form: { data: { turbo_confirm: 'Você tem certeza?' } } %>
-
 <h3>Porções disponíveis</h3>
 <% if @dish.portions.any? %>
   <dl>

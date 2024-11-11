@@ -1,6 +1,6 @@
 class DishesController < ApplicationController
   before_action :build_dish, only: [:new, :create]
-  before_action :get_dish_by_id, only: [:show, :edit, :update, :destroy, :deactivate, :activate]
+  before_action :get_dish_by_id, only: [:show, :edit, :update, :deactivate, :activate]
   before_action :authenticate_restaurant!, only: [:edit, :update, :deactivate, :activate]
 
   def show; end
@@ -41,11 +41,6 @@ class DishesController < ApplicationController
     @dish.active!
 
     redirect_to dish_path(@dish)
-  end
-
-  def destroy
-    @dish.delete
-    redirect_to root_path, notice: 'Prato removido com sucesso'
   end
 
   private
